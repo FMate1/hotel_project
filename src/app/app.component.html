@@ -1,0 +1,34 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Hotel_project</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/employee-list">Alkalmazottak listája</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/employee-form" *ngIf="authService.isLoggedIn()">Új alkalmazott űrlap</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/room-list">Szobák listája</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/login" *ngIf="!authService.isLoggedIn()">Belépés</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/registration-form" *ngIf="!authService.isLoggedIn()">Regisztráció</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" (click)="logout()" *ngIf="authService.isLoggedIn()">Kilépés</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

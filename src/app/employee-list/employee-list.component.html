@@ -1,0 +1,71 @@
+<div class="row justify-content-md-center">
+	<div class="col-md-12">
+		<h4>Alkalmazottak listája</h4>
+		<hr>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-3">
+			<label for="selectedRole" class="form-label">Szerepkör</label>
+			<select name="selectedRole" id="selectedRole" class="form-select"
+				aria-label=".form-select-sm example" [(ngModel)]="selectedRole" (ngModelChange)="filterTable()">
+				<option value="">Összes</option>
+				<option *ngFor="let role of roles" [ngValue]="{ roleId: role.roleId }">
+					{{ role.title }}
+				</option>
+			</select>
+		</div>
+		<div class="col-md-2">
+			<label for="selectedGender" class="form-label">Nem</label>
+			<select name="selectedGender" id="selectedGender" class="form-select" 
+				aria-label=".form-select-sm example" [(ngModel)]="selectedGender" (ngModelChange)="filterTable()">
+				<option value="">Összes</option>
+				<option value="female">Nő</option>
+				<option value="male">Férfi</option>
+			</select>
+		</div>
+	</div>
+</div>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">ID</th>
+			<th scope="col">Név</th>
+			<th scope="col">Nem</th>
+			<th scope="col">Szül. idő</th>
+			<th scope="col">Adószám</th>
+			<th scope="col">TAJ szám</th>
+			<th scope="col">Telefonszám</th>
+			<th scope="col">Email</th>
+			<th scope="col">Fizetés</th>
+			<th scope="col">Szerepkör</th>
+		</tr>
+	</thead>
+	<tbody>
+		<ng-container *ngFor="let employee of filteredEmployees">
+			<tr>
+				<th scope="row">{{ employee.employeeId | number }}</th>
+				<td>{{ employee.name }}</td>
+				<td>{{ employee.gender }}</td>
+				<td>{{ employee.dateOfBirth }}</td>
+				<td>{{ employee.taxNumber }}</td>
+				<td>{{ employee.TAJ }}</td>
+				<td>{{ employee.phoneNo }}</td>
+				<td>{{ employee.email }}</td>
+				<td>{{ employee.salary }}</td>
+				<td>{{ employee?.role?.title }}</td>
+				<td>
+					<button class="btn btn-sm btn-outline-primary" 
+					(click)="navigateToEmployeeForm(employee.employeeId)">Szerkesztés</button>
+				</td>
+				<td>
+					<button class="btn btn-sm btn-outline-danger" 
+                    (click)="deleteEmployee(employee)">Törlés</button>
+				</td>
+			</tr>
+		</ng-container>
+	</tbody>
+</table>
