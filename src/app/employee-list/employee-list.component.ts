@@ -63,7 +63,7 @@ export class EmployeeListComponent implements OnInit {
 
   filterTable() {
     this.filteredEmployees = this.employees.filter((employee) => {
-      const matchesRoleSelector = this.selectedRole === '' || employee.role?.roleId === this.selectedRole.roleId;
+      const matchesRoleSelector = this.selectedRole === '' || employee.role?.id === this.selectedRole.id;
       const matchesGenderSelector = this.selectedGender === '' || employee.gender === this.selectedGender;
 
       return matchesRoleSelector && matchesGenderSelector;
@@ -74,12 +74,12 @@ export class EmployeeListComponent implements OnInit {
     }
   }
 
-  navigateToEmployeeForm(employeeId : number) {
-    this.router.navigate(['/employee-form', employeeId]);
+  navigateToEmployeeForm(id : number) {
+    this.router.navigate(['/employee-form', id]);
   }
 
   deleteEmployee(employee: EmployeeDTO) {
-    this.employeeService.delete(employee.employeeId).subscribe({
+    this.employeeService.delete(employee.id).subscribe({
       next: () => {
         const index = this.employees.indexOf(employee);
         if (index > -1) {

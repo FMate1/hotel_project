@@ -7,7 +7,7 @@ import { Guest } from "./Guest";
 export class Bill implements BillDTO {
 
     @PrimaryGeneratedColumn()
-    billId: number;
+    id: number;
 
     @Column({ type: 'date'})
     paymentDate: string;

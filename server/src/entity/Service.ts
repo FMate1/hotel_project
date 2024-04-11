@@ -7,7 +7,7 @@ import { Bill } from "./Bill";
 export class Service implements ServiceDTO {
 
     @PrimaryGeneratedColumn()
-    serviceId: number;
+    id: number;
 
     @Column()
     serviceName: string;

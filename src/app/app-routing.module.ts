@@ -6,6 +6,7 @@ import { EmployeeFormComponent } from './employee-form/employee-form.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './services/auth.service';
+import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 
 const routes: Routes = [
   {
@@ -33,7 +34,21 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+
+
+
+
+
+  {
+    path: 'welcome-page',
+    component: WelcomePageComponent               // EZT LEHET kell majd venni !!!!!
   }
+
+
+
+
+  
 ];
 
 @NgModule({

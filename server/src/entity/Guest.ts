@@ -8,7 +8,7 @@ import { Bill } from "./Bill";
 export class Guest implements GuestDTO {
 
     @PrimaryGeneratedColumn()
-    guestId: number;
+    id: number;
 
     @Column()
     firstName: string;

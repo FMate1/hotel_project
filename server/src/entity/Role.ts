@@ -6,7 +6,7 @@ import { Employee } from './Employee';
 export class Role implements RoleDTO {
 
     @PrimaryGeneratedColumn()
-    roleId: number;
+    id: number;
 
     @Column()
     title: string;
@@ -14,7 +14,7 @@ export class Role implements RoleDTO {
     @Column()
     description: string;
 
-    @OneToMany(() => Employee, (employee) => employee.employeeId)
+    @OneToMany(() => Employee, (employee) => employee.id)
     employees: Employee[];
 
 }

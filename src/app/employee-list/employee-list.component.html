@@ -12,7 +12,7 @@
 			<select name="selectedRole" id="selectedRole" class="form-select"
 				aria-label=".form-select-sm example" [(ngModel)]="selectedRole" (ngModelChange)="filterTable()">
 				<option value="">Összes</option>
-				<option *ngFor="let role of roles" [ngValue]="{ roleId: role.roleId }">
+				<option *ngFor="let role of roles" [ngValue]="{ roleId: role.id }">
 					{{ role.title }}
 				</option>
 			</select>
@@ -47,7 +47,7 @@
 	<tbody>
 		<ng-container *ngFor="let employee of filteredEmployees">
 			<tr>
-				<th scope="row">{{ employee.employeeId | number }}</th>
+				<th scope="row">{{ employee.id | number }}</th>
 				<td>{{ employee.name }}</td>
 				<td>{{ employee.gender }}</td>
 				<td>{{ employee.dateOfBirth }}</td>
@@ -59,7 +59,7 @@
 				<td>{{ employee?.role?.title }}</td>
 				<td>
 					<button class="btn btn-sm btn-outline-primary" 
-					(click)="navigateToEmployeeForm(employee.employeeId)">Szerkesztés</button>
+					(click)="navigateToEmployeeForm(employee.id)">Szerkesztés</button>
 				</td>
 				<td>
 					<button class="btn btn-sm btn-outline-danger" 

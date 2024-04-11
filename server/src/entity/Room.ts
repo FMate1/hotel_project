@@ -6,7 +6,7 @@ import { Hotel } from "./Hotel";
 export class Room implements RoomDTO {
 
     @PrimaryGeneratedColumn()
-    roomId: number;
+    id: number;
 
     @Column({ unique: true })
     roomNumber: number;

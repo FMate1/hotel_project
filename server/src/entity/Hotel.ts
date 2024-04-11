@@ -9,7 +9,7 @@ import { Room } from "./Room";
 export class Hotel implements HotelDTO {
 
     @PrimaryGeneratedColumn()
-    hotelId: number;
+    id: number;
 
     @Column()
     hotelName: string;

@@ -7,7 +7,7 @@ import { Role } from "./Role";
 export class Employee implements EmployeeDTO {
     
     @PrimaryGeneratedColumn()
-    employeeId: number;
+    id: number;
 
     @Column()
     name: string;

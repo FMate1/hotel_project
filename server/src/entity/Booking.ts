@@ -7,7 +7,7 @@ import { Guest } from "./Guest";
 export class Booking implements BookingDTO {
 
     @PrimaryGeneratedColumn()
-    bookingId: number;
+    id: number;
 
     @Column({ type: 'date' })
     bookingDate: string;

@@ -13,8 +13,8 @@ export class EmployeeService {
      return this.http.get<EmployeeDTO[]>('api/employees/');
   }
 
-  getOne(employeeId: number) {
-    return this.http.get<EmployeeDTO>('api/employees/' + employeeId);
+  getOne(id: number) {
+    return this.http.get<EmployeeDTO>('api/employees/' + id);
   }
 
   create(employee: EmployeeDTO) {
@@ -25,7 +25,7 @@ export class EmployeeService {
     return this.http.put<EmployeeDTO>('api/employees', employee);
   }
 
-  delete(employeeId: number) {
-    return this.http.delete('api/employees/' + employeeId);
+  delete(id: number) {
+    return this.http.delete('api/employees/' + id);
   }
 }

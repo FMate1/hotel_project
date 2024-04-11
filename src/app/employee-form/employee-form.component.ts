@@ -21,7 +21,7 @@ export class EmployeeFormComponent implements OnInit {
   isNewEmployee = true;
   
   employeeForm = this.formBuilder.group({
-    employeeId: this.formBuilder.control(0),
+    id: this.formBuilder.control(0),
     name: this.formBuilder.control(''),
     gender: this.formBuilder.control(''),
     dateOfBirth: this.formBuilder.control(new Date().toISOString().split('T')[0]),
@@ -44,12 +44,12 @@ export class EmployeeFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const employeeId = this.activatedRoute.snapshot.params['employeeId'];
+    const id = this.activatedRoute.snapshot.params['id'];
 
-    if (employeeId) {
+    if (id) {
       this.isNewEmployee = false;
 
-      this.employeeService.getOne(employeeId).subscribe({
+      this.employeeService.getOne(id).subscribe({
         next: (employee) => this.employeeForm.setValue(employee),
         error: (err) => {
           console.error(err);
@@ -112,7 +112,7 @@ export class EmployeeFormComponent implements OnInit {
       if (this.isNewEmployee) {
         this.employeeService.create(employee).subscribe({
           next: (employee) => {
-            this.toastrService.success('Alkalmazott sikeresen rögzítve, id:' + employee.employeeId , 'Siker');
+            this.toastrService.success('Alkalmazott sikeresen rögzítve, id:' + employee.id , 'Siker');
           },
           error: (err) => { 
             this.toastrService.error('Az alkalmazott rögzítése nem sikerült.', 'Hiba');

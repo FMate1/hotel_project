@@ -7,7 +7,7 @@ import { Hotel } from "./Hotel";
 export class GuestFeedback implements GuestFeedbackDTO {
 
     @PrimaryGeneratedColumn()
-    feedbackId: number;
+    id: number;
 
     @Column()
     opinion: string;

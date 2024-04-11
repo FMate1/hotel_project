@@ -1,11 +1,11 @@
 export interface RoleDTO {
-    roleId: number;
+    id: number;
     title: string;
     description: string;
 }
 
 export interface EmployeeDTO {
-    employeeId: number;
+    id: number;
     name: string;
     gender: string;
     dateOfBirth: string;
@@ -19,7 +19,7 @@ export interface EmployeeDTO {
 }
 
 export interface HotelDTO {
-    hotelId: number;
+    id: number;
     hotelName: string;
     address: string;
     postcode: number;
@@ -30,14 +30,14 @@ export interface HotelDTO {
 }
 
 export interface ServiceDTO {
-    serviceId: number;
+    id: number;
     serviceName: string;
     price: number;
     hotel: null | HotelDTO;
 }
 
 export interface GuestDTO {
-    guestId: number;
+    id: number;
     firstName: string;
     lastName: string;
     phoneNo: number;
@@ -50,14 +50,14 @@ export interface GuestDTO {
 }
 
 export interface GuestFeedbackDTO {
-    feedbackId: number;
+    id: number;
     opinion: string;
     guest: null | GuestDTO;
     hotel: null | HotelDTO;
 }
 
 export interface RoomDTO {
-    roomId: number;
+    id: number;
     roomNumber: number;
     type: string;
     numBeds: number;
@@ -66,7 +66,7 @@ export interface RoomDTO {
 }
 
 export interface BillDTO {
-    billId: number;
+    id: number;
     paymentDate: string;
     paymentMethod: string;
     booking: null | BookingDTO;
@@ -74,7 +74,7 @@ export interface BillDTO {
 }
 
 export interface BookingDTO {
-    bookingId: number;
+    id: number;
     bookingDate: string;
     checkInDate: string;
     checkOutDate: string;
