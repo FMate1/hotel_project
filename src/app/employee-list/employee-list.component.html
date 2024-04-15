@@ -12,7 +12,7 @@
 			<select name="selectedRole" id="selectedRole" class="form-select"
 				aria-label=".form-select-sm example" [(ngModel)]="selectedRole" (ngModelChange)="filterTable()">
 				<option value="">Összes</option>
-				<option *ngFor="let role of roles" [ngValue]="{ roleId: role.id }">
+				<option *ngFor="let role of roles" [ngValue]="{ id: role.id }">
 					{{ role.title }}
 				</option>
 			</select>
@@ -49,7 +49,9 @@
 			<tr>
 				<th scope="row">{{ employee.id | number }}</th>
 				<td>{{ employee.name }}</td>
-				<td>{{ employee.gender }}</td>
+				<td><span *ngIf="employee.gender === 'male'; then thenBlock else elseBlock"></span>
+					<ng-template #thenBlock>Férfi</ng-template>
+					<ng-template #elseBlock>Nő</ng-template></td>
 				<td>{{ employee.dateOfBirth }}</td>
 				<td>{{ employee.taxNumber }}</td>
 				<td>{{ employee.TAJ }}</td>

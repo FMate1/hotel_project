@@ -46,7 +46,7 @@
             <div class="mb-3">
                 <label for="hotel" class="form-label">Hotel</label>
                 <select name="hotel" id="hotel" class="form-select" formControlName="hotel">
-                    <option *ngFor="let hotel of hotels" [ngValue]="{ hotelId: hotel.id}">
+                    <option *ngFor="let hotel of hotels" [ngValue]="{ id: hotel.id}">
                         {{ hotel.hotelName }}
                     </option>
                 </select>
@@ -54,7 +54,7 @@
             <div class="mb-3">
                 <label for="role" class="form-label">Szerepkör</label>
                 <select name="role" id="role" class="form-select" formControlName="role">
-                    <option *ngFor="let role of roles" [ngValue]="{ roleId: role.id }">
+                    <option *ngFor="let role of roles" [ngValue]="{ id: role.id }">
                         {{ role.title }}
                     </option>
                 </select>

@@ -23,7 +23,7 @@ const routes: Routes = [
     canActivate: [ () => inject(AuthService).preventGuestAccess() ]
   },
   {
-    path: 'employee-form/:employeeId',
+    path: 'employee-form/:id',
     component: EmployeeFormComponent,
     canActivate: [ () => inject(AuthService).preventGuestAccess() ]
   },
