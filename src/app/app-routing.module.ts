@@ -7,6 +7,7 @@ import { RegistrationFormComponent } from './registration-form/registration-form
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './services/auth.service';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
+import { HotelSevicesListComponent } from './hotel-sevices-list/hotel-sevices-list.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
     path: 'employee-form/:id',
     component: EmployeeFormComponent,
     canActivate: [ () => inject(AuthService).preventGuestAccess() ]
+  },
+  {
+    path: 'hotel-services-list',
+    component: HotelSevicesListComponent
   },
   {
     path: 'registration-form',

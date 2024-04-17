@@ -1,0 +1,27 @@
+<div class="row justify-content-md-center">
+	<div class="col-md-12">
+		<h4>Igénybevehető szolgáltatások listája</h4>
+		<hr>
+	</div>
+</div>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col"></th>
+			<th scope="col">Szolgáltatás neve</th>
+			<th scope="col">Ár / Alkalom</th>
+		</tr>
+	</thead>
+	<tbody>
+			<tr *ngFor="let hotelService of hotelServices; let i = index">
+				<th scope="row">{{ i + 1 | number }}</th>
+				<td>{{ hotelService.serviceName }}</td>
+				<td>{{ hotelService.price }} Ft</td>
+                <!--
+                <td *ngIf="authService.isLoggedIn()"><button class="btn btn-sm btn-outline-success" (click)="">Szerkesztés</button></td>
+                -->
+			    <td *ngIf="authService.isLoggedIn()"><button class="btn btn-sm btn-outline-danger" (click)="deleteHotelService(hotelService)">Törlés</button></td>
+			</tr>
+	</tbody>
+</table>

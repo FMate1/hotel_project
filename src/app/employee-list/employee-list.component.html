@@ -32,7 +32,7 @@
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<th scope="col">ID</th>
+			<th scope="col"></th>
 			<th scope="col">Név</th>
 			<th scope="col">Nem</th>
 			<th scope="col">Szül. idő</th>
@@ -45,13 +45,15 @@
 		</tr>
 	</thead>
 	<tbody>
-		<ng-container *ngFor="let employee of filteredEmployees">
+		<ng-container *ngFor="let employee of filteredEmployees; let i = index">
 			<tr>
-				<th scope="row">{{ employee.id | number }}</th>
+				<th scope="row">{{ i + 1 | number }}</th>
 				<td>{{ employee.name }}</td>
-				<td><span *ngIf="employee.gender === 'male'; then thenBlock else elseBlock"></span>
+				<td>
+					<span *ngIf="employee.gender === 'male'; then thenBlock else elseBlock"></span>
 					<ng-template #thenBlock>Férfi</ng-template>
-					<ng-template #elseBlock>Nő</ng-template></td>
+					<ng-template #elseBlock>Nő</ng-template>
+				</td>
 				<td>{{ employee.dateOfBirth }}</td>
 				<td>{{ employee.taxNumber }}</td>
 				<td>{{ employee.TAJ }}</td>

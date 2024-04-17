@@ -97,7 +97,7 @@ export class EmployeeFormComponent implements OnInit {
 
   validateForm(inputForm: EmployeeDTO): void {
     if (!inputForm.name || !inputForm.gender || !inputForm.dateOfBirth || !inputForm.taxNumber || !inputForm.phoneNo 
-      || !inputForm.email || !inputForm.salary || !inputForm.hotel || !inputForm.role /*|| !this.validateTAJnumber(inputForm.TAJ)*/) {
+      || !inputForm.email || !inputForm.salary || inputForm.salary <= 220000 || !inputForm.hotel || !inputForm.role /*|| !this.validateTAJnumber(inputForm.TAJ)*/) {
       this.isValidEmployee = false;
     }
   }

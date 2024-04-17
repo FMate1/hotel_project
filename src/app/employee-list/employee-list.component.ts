@@ -35,7 +35,7 @@ export class EmployeeListComponent implements OnInit {
         this.employees = employees;
       },
       error: (err) => { 
-        this.toastrService.error('A alkalmazottak listájának betöltése nem sikerült.', 'Hiba');
+        this.toastrService.error('Az alkalmazottak listájának betöltése nem sikerült.', 'Hiba');
       }
     });
 
@@ -56,7 +56,7 @@ export class EmployeeListComponent implements OnInit {
         this.filterTable();
       },
       (error) => {
-        this.toastrService.error('A alkalmazottak listájának betöltése nem sikerült.', 'Hiba');
+        this.toastrService.error('Az alkalmazottak listájának betöltése nem sikerült.', 'Hiba');
       }
     );
   }

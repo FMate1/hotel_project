@@ -15,6 +15,7 @@ import { AccessTokenInterceptor } from './services/access-token.interceptor';
 import { UnauthorizedInterceptor } from './services/unauthorized.interceptor';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
+import { HotelSevicesListComponent } from './hotel-sevices-list/hotel-sevices-list.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { EmployeeListComponent } from './employee-list/employee-list.component';
     RoomListComponent,
     RegistrationFormComponent,
     LoginComponent,
-    WelcomePageComponent
+    WelcomePageComponent,
+    HotelSevicesListComponent
   ],
   imports: [
     BrowserModule,
