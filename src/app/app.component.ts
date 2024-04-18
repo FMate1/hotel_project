@@ -9,7 +9,6 @@ import { AuthService } from './services/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'veradas-nyilvantarto';           // ezt átnevezni !!!!
 
   constructor(
     private router: Router,

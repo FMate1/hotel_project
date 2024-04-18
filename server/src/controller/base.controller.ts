@@ -29,6 +29,7 @@ export abstract class Controller {
     create = async (req, res) => {
         try {
             const entity = this.repository.create(req.body as object);
+
             entity.id = null;
 
             const result = await this.repository.save(entity);

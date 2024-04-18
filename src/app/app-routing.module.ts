@@ -46,7 +46,7 @@ const routes: Routes = [
 
 
   {
-    path: 'welcome-page',
+    path: '',
     component: WelcomePageComponent               // EZT LEHET kell majd venni !!!!!
   }
 

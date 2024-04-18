@@ -1,24 +1,28 @@
-<div class="row justify-content-md-center">
-    <div class="col-md-12">
-        <h4>Szobák listája</h4>
-        <hr>
-    </div>
-</div>
+<div class="container">
 
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th scope="col"></th>
-			<th scope="col">Szoba típusa</th>
-			<th scope="col">Férőhelyek száma</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr *ngFor="let room of rooms; let i = index">
-			<th scope="row">{{ i + 1 | number }}</th>
-			<td>{{ room.type }}</td>
-			<td>{{ room.numBeds | number }}</td>
-			<td><button class="btn btn-outline-primary">Foglalás</button></td>
-		</tr>
-	</tbody>
-</table>
+	<div class="row justify-content-md-center">
+		<div class="col-md-12">
+			<h4>Szobák listája</h4>
+			<hr>
+		</div>
+	</div>
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col"></th>
+				<th scope="col">Szoba típusa</th>
+				<th scope="col">Férőhelyek száma</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let room of rooms; let i = index">
+				<th scope="row">{{ i + 1 | number }}</th>
+				<td>{{ room.type }}</td>
+				<td>{{ room.numBeds | number }}</td>
+				<td><button class="btn btn-outline-primary">Foglalás</button></td>
+			</tr>
+		</tbody>
+	</table>
+
+</div>

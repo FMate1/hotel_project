@@ -78,13 +78,15 @@ export class EmployeeListComponent implements OnInit {
     this.router.navigate(['/employee-form', id]);
   }
 
-  deleteEmployee(employee: EmployeeDTO) {
-    this.employeeService.delete(employee.id).subscribe({
+  deleteEmployee(employeeToDelete: EmployeeDTO) {
+    this.employeeService.delete(employeeToDelete.id).subscribe({
       next: () => {
-        const index = this.employees.indexOf(employee);
-        if (index > -1) {
-          this.employees.splice(index, 1);
+        const employeeIndex = this.employees.findIndex((employee) => employeeToDelete.id === employee.id);
+        if (employeeIndex > -1) {
+          this.employees.splice(employeeIndex, 1);
         }
+
+        this.filterTable()
       },
       error: (err) => {
         console.error(err);

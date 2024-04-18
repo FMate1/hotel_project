@@ -9,9 +9,9 @@ export interface EmployeeDTO {
     name: string;
     gender: string;
     dateOfBirth: string;
-    taxNumber: number;
-    TAJ: number;
-    phoneNo: number;
+    taxNumber: string;
+    TAJ: string;
+    phoneNo: string;
     email: string;
     salary: number;
     hotel: null | HotelDTO;
