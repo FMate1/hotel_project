@@ -61,7 +61,6 @@ export interface RoomDTO {
     roomNumber: number;
     type: string;
     numBeds: number;
-    isAvailable: boolean;
     hotel: null | HotelDTO;
 }
 
