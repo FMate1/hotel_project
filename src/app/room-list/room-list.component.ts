@@ -31,7 +31,20 @@ export class RoomListComponent implements OnInit {
     });
   }
 
-  navigateToDoubleRoom() {
-    this.router.navigate(['/double-room']);
+  navigateToRoom(roomType: string) {
+    switch (roomType) {
+      case 'Double':
+        this.router.navigate(['/double-room']);
+        break;
+      case 'Twin':
+        this.router.navigate(['/twin-room']);
+        break;
+      case 'Family':
+        this.router.navigate(['/family-room']);
+        break;
+      default:
+        this.router.navigate(['']);
+        break;
+    }
   }
 }

@@ -18,12 +18,7 @@
 				<th scope="row">{{ i + 1 | number }}</th>
 				<td>{{ room.type }}</td>
 				<td>{{ room.numBeds | number }}</td>
-				<!-- <td><button class="btn btn-outline-primary" (click)="navigateToDoubleRoom()">Foglalás és részletek</button></td> -->
-				<!-- <td [ngSwitch]="room.type">
-					<button *ngSwitchCase="'Double'" (click)="navigateToDoubleRoom(room.id)">
-						Foglalj egyágyast
-					</button>
-				</td> -->
+				<td><button class="btn btn-outline-primary" (click)="navigateToRoom(room.type)">Foglalás és részletek</button></td>
 			</tr>
 		</tbody>
 	</table>
