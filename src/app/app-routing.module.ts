@@ -8,11 +8,19 @@ import { LoginComponent } from './login/login.component';
 import { AuthService } from './services/auth.service';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { HotelSevicesListComponent } from './hotel-sevices-list/hotel-sevices-list.component';
+import { DoubleRoomComponent } from './double-room/double-room.component';
+import { TwinRoomComponent } from './twin-room/twin-room.component';
+import { FamilyRoomComponent } from './family-room/family-room.component';
 
 const routes: Routes = [
   {
+    path: '',
+    component: WelcomePageComponent
+  },
+  {
     path: 'employee-list',
-    component: EmployeeListComponent
+    component: EmployeeListComponent,
+    canActivate: [ () => inject(AuthService).preventGuestAccess() ]
   },
   {
     path: 'room-list',
@@ -40,20 +48,19 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
-
-
-
-
-
   {
-    path: '',
-    component: WelcomePageComponent               // EZT LEHET kell majd venni !!!!!
+    path: 'double-room',
+    component: DoubleRoomComponent
+  },
+  {
+    path: 'twin-room',
+    component: TwinRoomComponent
+  },
+  {
+    path: 'family-room',
+    component: FamilyRoomComponent
   }
 
-
-
-
-  
 ];
 
 @NgModule({

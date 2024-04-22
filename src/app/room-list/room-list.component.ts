@@ -3,6 +3,7 @@ import { RoomDTO } from 'models';
 import { RoomService } from '../services/room.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-room-list',
@@ -15,6 +16,7 @@ export class RoomListComponent implements OnInit {
   constructor(
     private roomService: RoomService,
     private toastrService: ToastrService,
+    private router: Router,
     public authService: AuthService
   ) { }
 
@@ -27,6 +29,9 @@ export class RoomListComponent implements OnInit {
         this.toastrService.error('A szobák betöltése nem sikerült.', 'Hiba');
       }
     });
+  }
 
+  navigateToDoubleRoom() {
+    this.router.navigate(['/double-room']);
   }
 }
