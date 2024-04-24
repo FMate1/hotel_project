@@ -1,7 +1,7 @@
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { BookingDTO } from "../../../models";
 import { Room } from "./Room";
-import { Guest } from "./Guest";
+import { User } from "./User";
 
 @Entity()
 export class Booking implements BookingDTO {
@@ -24,10 +24,10 @@ export class Booking implements BookingDTO {
     @Column()
     numChildren: number;
 
-    @ManyToOne(() => Guest, (guest) => guest.bookings, { eager: true })
-    guest: Guest;
+    @ManyToOne(() => User, (user) => user.bookings, { eager: true })
+    user: User;
 
-    @ManyToMany(() => Room)
-    @JoinTable()
-    rooms: Room[]
+    @ManyToOne(() => Room, (room) => room.bookings, { eager: true })
+    room: Room;
+
 }

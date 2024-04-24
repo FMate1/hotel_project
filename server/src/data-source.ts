@@ -5,7 +5,6 @@ import { Hotel } from "./entity/Hotel"
 import { Employee } from "./entity/Employee"
 import { User } from "./entity/User"
 import { Bill } from "./entity/Bill"
-import { Guest } from "./entity/Guest"
 import { GuestFeedback } from "./entity/GuestFeedback"
 import { Room } from "./entity/Room"
 import { Service } from "./entity/Service"
@@ -19,7 +18,7 @@ export const AppDataSource = new DataSource({
     database: "hotel_project",
     synchronize: true,
     logging: true,
-    entities: [Role, Hotel, Employee, User, Bill, Guest, GuestFeedback, Room, Service, Booking],
+    entities: [Role, Hotel, Employee, User, Bill, GuestFeedback, Room, Service, Booking],
     migrations: [],
     subscribers: [],
 })

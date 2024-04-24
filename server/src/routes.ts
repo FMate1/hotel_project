@@ -6,7 +6,6 @@ import { UserController } from './controller/user.controller';
 import { checkUser } from './protect-routes';
 import { BillController } from './controller/bill.controller';
 import { BookingController } from './controller/booking.controller';
-import { GuestController } from './controller/guest.controller';
 import { GuestFeedBackController } from './controller/guestFeedback.controller';
 import { RoomController } from './controller/room.controller';
 import { ServiceController } from './controller/service.controller';
@@ -64,14 +63,6 @@ export function getRoutes() {
     router.post('/bookings', checkUser, bookingController.create);
     router.put('/bookings', checkUser, bookingController.update);
     router.delete('/bookings/:id', checkUser, bookingController.delete);
-
-    const guestController = new GuestController();
-
-    router.get('/guests', guestController.getAll);
-    router.get('/guests/:id', guestController.getOne);
-    router.post('/guests', checkUser, guestController.create);
-    router.put('/guests', checkUser, guestController.update);
-    router.delete('/guests/:id', checkUser, guestController.delete);
 
     const guestFeedbackController = new GuestFeedBackController();
 

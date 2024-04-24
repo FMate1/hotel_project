@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { BillDTO } from "../../../models";
 import { Booking } from "./Booking";
-import { Guest } from "./Guest";
+import { User } from "./User";
 
 @Entity()
 export class Bill implements BillDTO {
@@ -15,8 +15,8 @@ export class Bill implements BillDTO {
     @Column()
     paymentMethod: string;
 
-    @ManyToOne(() => Guest, (guest) => guest.bills, { eager: true })
-    guest: Guest;
+    @ManyToOne(() => User, (user) => user.bills, { eager: true })
+    user: User;
 
     @OneToOne(() => Booking)
     @JoinColumn()

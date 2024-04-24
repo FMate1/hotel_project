@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { GuestFeedbackDTO } from "../../../models";
-import { Guest } from "./Guest";
 import { Hotel } from "./Hotel";
+import { User } from "./User";
 
 @Entity()
 export class GuestFeedback implements GuestFeedbackDTO {
@@ -12,8 +12,8 @@ export class GuestFeedback implements GuestFeedbackDTO {
     @Column()
     opinion: string;
 
-    @ManyToOne(() => Guest, (guest) => guest.guestFeedbacks, { eager: true })
-    guest: Guest;
+    @ManyToOne(() => User, (user) => user.guestFeedbacks, { eager: true })
+    user: User;
 
     @ManyToOne(() => Hotel, (hotel) => hotel.guestFeedbacks, { eager: true })
     hotel: Hotel;

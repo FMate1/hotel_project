@@ -36,23 +36,10 @@ export interface ServiceDTO {
     hotel: null | HotelDTO;
 }
 
-export interface GuestDTO {
-    id: number;
-    firstName: string;
-    lastName: string;
-    phoneNo: number;
-    email: string;
-    gender: string;
-    country: string;
-    postCode: number;
-    city: string;
-    address: string;
-}
-
 export interface GuestFeedbackDTO {
     id: number;
     opinion: string;
-    guest: null | GuestDTO;
+    user: null | UserDTO;
     hotel: null | HotelDTO;
 }
 
@@ -69,7 +56,7 @@ export interface BillDTO {
     paymentDate: string;
     paymentMethod: string;
     booking: null | BookingDTO;
-    guest: null | GuestDTO;
+    user: null | UserDTO;
 }
 
 export interface BookingDTO {
@@ -79,7 +66,8 @@ export interface BookingDTO {
     checkOutDate: string;
     numAdults: number;
     numChildren: number;
-    guest: null | GuestDTO;
+    user: null | UserDTO;
+    room: null | RoomDTO;
 }
 
 export interface UserDTO {

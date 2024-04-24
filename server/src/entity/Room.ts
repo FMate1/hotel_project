@@ -1,6 +1,7 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { RoomDTO } from "../../../models";
 import { Hotel } from "./Hotel";
+import { Booking } from "./Booking";
 
 @Entity()
 export class Room implements RoomDTO {
@@ -19,4 +20,7 @@ export class Room implements RoomDTO {
 
     @ManyToOne(() => Hotel, (hotel) => hotel.rooms, { eager: true })
     hotel: Hotel;
+
+    @OneToMany(() => Booking, (booking) => booking.room)
+    bookings: Booking[];
 }
