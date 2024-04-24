@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-md-6">
+            <h4>Új szolgáltatás rögzítése</h4>
+            <hr>
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-6">
+            <form [formGroup]="hotelServiceForm">
+                <div class="mb-3">
+                    <label for="serviceName" class="form-label">Szolgáltatás neve</label>
+                    <input type="text" class="form-control" id="serviceName" name="serviceName" formControlName="serviceName">
+                </div>
+                <div class="mb-3">
+                    <label for="price" class="form-label">Szolgáltatás ára</label>
+                    <input type="number" class="form-control" id="price" name="price" formControlName="price">
+                </div>
+                <div class="mb-3">
+                    <label for="hotel" class="form-label">Hotel</label>
+                    <select name="hotel" id="hotel" class="form-select" formControlName="hotel">
+                        <option *ngFor="let hotel of hotels" [ngValue]="{ id: hotel.id}">
+                            {{ hotel.hotelName }}
+                        </option>
+                    </select>
+                </div>
+                <div class="text-end">
+                    <button class="btn btn-outline-primary" (click)="saveHotelService()">Mentés</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -20,9 +20,8 @@
 				<th scope="row">{{ i + 1 | number }}</th>
 				<td>{{ hotelService.serviceName }}</td>
 				<td>{{ hotelService.price }} Ft</td>
-				<!--
-                <td *ngIf="authService.isLoggedIn()"><button class="btn btn-sm btn-outline-success" (click)="">Szerkesztés</button></td>
-                -->
+                <td *ngIf="authService.isLoggedIn()"><button class="btn btn-sm btn-outline-primary" 
+					(click)="navigateToHotelServiceForm(hotelService.id)">Szerkesztés</button></td>
 				<td *ngIf="authService.isLoggedIn()"><button class="btn btn-sm btn-outline-danger"
 						(click)="deleteHotelService(hotelService)">Törlés</button></td>
 			</tr>

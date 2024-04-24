@@ -12,6 +12,7 @@ import { DoubleRoomComponent } from './double-room/double-room.component';
 import { TwinRoomComponent } from './twin-room/twin-room.component';
 import { FamilyRoomComponent } from './family-room/family-room.component';
 import { AttractionsActivitiesComponent } from './attractions-activities/attractions-activities.component';
+import { HotelServicesFormComponent } from './hotel-services-form/hotel-services-form.component';
 
 const routes: Routes = [
   {
@@ -40,6 +41,14 @@ const routes: Routes = [
   {
     path: 'hotel-services-list',
     component: HotelSevicesListComponent
+  },
+  {
+    path: 'hotel-services-form',
+    component: HotelServicesFormComponent
+  },
+  {
+    path: 'hotel-services-form/:id',
+    component: HotelServicesFormComponent
   },
   {
     path: 'registration-form',

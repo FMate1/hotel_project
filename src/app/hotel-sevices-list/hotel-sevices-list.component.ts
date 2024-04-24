@@ -44,11 +44,9 @@ export class HotelSevicesListComponent implements OnInit{
     );
   }
 
-  /*
   navigateToHotelServiceForm(id : number) {
-    this.router.navigate(['/hotelServices-form', id]);
+    this.router.navigate(['/hotel-services-form', id]);
   }
-  */
 
   deleteHotelService(hotelService: ServiceDTO) {
     this.hotelServicesService.delete(hotelService.id).subscribe({
