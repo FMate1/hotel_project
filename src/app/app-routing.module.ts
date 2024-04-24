@@ -11,6 +11,7 @@ import { HotelSevicesListComponent } from './hotel-sevices-list/hotel-sevices-li
 import { DoubleRoomComponent } from './double-room/double-room.component';
 import { TwinRoomComponent } from './twin-room/twin-room.component';
 import { FamilyRoomComponent } from './family-room/family-room.component';
+import { AttractionsActivitiesComponent } from './attractions-activities/attractions-activities.component';
 
 const routes: Routes = [
   {
@@ -59,6 +60,10 @@ const routes: Routes = [
   {
     path: 'family-room',
     component: FamilyRoomComponent
+  },
+  {
+    path: 'attractions-activities',
+    component: AttractionsActivitiesComponent
   }
 
 ];

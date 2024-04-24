@@ -19,6 +19,7 @@ import { HotelSevicesListComponent } from './hotel-sevices-list/hotel-sevices-li
 import { DoubleRoomComponent } from './double-room/double-room.component';
 import { TwinRoomComponent } from './twin-room/twin-room.component';
 import { FamilyRoomComponent } from './family-room/family-room.component';
+import { AttractionsActivitiesComponent } from './attractions-activities/attractions-activities.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { FamilyRoomComponent } from './family-room/family-room.component';
     HotelSevicesListComponent,
     DoubleRoomComponent,
     TwinRoomComponent,
-    FamilyRoomComponent
+    FamilyRoomComponent,
+    AttractionsActivitiesComponent
   ],
   imports: [
     BrowserModule,
