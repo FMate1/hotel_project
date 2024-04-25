@@ -59,15 +59,15 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'double-room',
+    path: 'double-room/:id',
     component: DoubleRoomComponent
   },
   {
-    path: 'twin-room',
+    path: 'twin-room/:id',
     component: TwinRoomComponent
   },
   {
-    path: 'family-room',
+    path: 'family-room/:id',
     component: FamilyRoomComponent
   },
   {

@@ -31,16 +31,16 @@ export class RoomListComponent implements OnInit {
     });
   }
 
-  navigateToRoom(roomType: string) {
+  navigateToRoom(roomType: string, id: number) {
     switch (roomType) {
       case 'Double':
-        this.router.navigate(['/double-room']);
+        this.router.navigate(['/double-room', id]);
         break;
       case 'Twin':
-        this.router.navigate(['/twin-room']);
+        this.router.navigate(['/twin-room', id]);
         break;
       case 'Family':
-        this.router.navigate(['/family-room']);
+        this.router.navigate(['/family-room', id]);
         break;
       default:
         this.router.navigate(['']);

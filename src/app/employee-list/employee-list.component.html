@@ -28,6 +28,17 @@
 					<option value="male">Férfi</option>
 				</select>
 			</div>
+			<div class="col-md-2">
+				<label for="selectedAgeRange" class="form-label">Életkor</label>
+				<select name="selectedAgeRange" id="selectedAgeRange" class="form-select"
+					aria-label=".form-select-sm example" [(ngModel)]="selectedAgeRange" (ngModelChange)="filterTable()">
+					<option value="0">Összes</option>
+					<option value="25">25+</option>
+					<option value="30">30+</option>
+					<option value="40">40+</option>
+					<option value="50">50+</option>
+				</select>
+			</div>
 		</div>
 	</div>
 

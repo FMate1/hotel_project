@@ -12,22 +12,22 @@ export class BookingService {
 
   getAll() {
     return this.http.get<BookingDTO[]>('api/bookings');
- }
+  }
 
- getOne(id: number) {
-   return this.http.get<BookingDTO>('api/bookings/' + id);
- }
+  getOne(id: number) {
+    return this.http.get<BookingDTO>('api/bookings/' + id);
+  }
 
- create(booking: BookingDTO) {
-   return this.http.post<BookingDTO>('api/bookings', booking);
- }
+  create(booking: BookingDTO) {
+    return this.http.post<BookingDTO>('api/bookings', booking);
+  }
 
- update(booking: BookingDTO) {
-   return this.http.put<BookingDTO>('api/bookings', booking);
- }
+  update(booking: BookingDTO) {
+    return this.http.put<BookingDTO>('api/bookings', booking);
+  }
 
- delete(id: number) {
-   return this.http.delete('api/bookings/' + id);
- }
+  delete(id: number) {
+    return this.http.delete('api/bookings/' + id);
+  }
 
 }

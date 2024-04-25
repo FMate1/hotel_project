@@ -17,7 +17,7 @@ export class EmployeeListComponent implements OnInit {
 
   selectedRole: any = '';
   selectedGender: any = '';
-  //selectedAge: string = '';   //25+ vagy 30+ stb., string kell valszeg date miatt
+  selectedAgeRange: number = 0;
 
   filteredEmployees: EmployeeDTO[] = [];
 
@@ -34,7 +34,7 @@ export class EmployeeListComponent implements OnInit {
       next: (employees) => {
         this.employees = employees;
       },
-      error: (err) => { 
+      error: (err) => {
         this.toastrService.error('Az alkalmazottak listájának betöltése nem sikerült.', 'Hiba');
       }
     });
@@ -43,7 +43,7 @@ export class EmployeeListComponent implements OnInit {
       next: (roles) => {
         this.roles = roles;
       },
-      error: (err) => { 
+      error: (err) => {
         this.toastrService.error('A szerepkörök betöltése nem sikerült.', 'Hiba');
       }
     });
@@ -61,20 +61,41 @@ export class EmployeeListComponent implements OnInit {
     );
   }
 
+  employeeAgeFilter(selectedAgeRange: number, employeeDateOfBirth: string): boolean {
+    const birthDate = new Date(employeeDateOfBirth);
+    const today = new Date();
+
+    let age = today.getFullYear() - birthDate.getFullYear();
+
+    const month = today.getMonth() - birthDate.getMonth();
+    const day = today.getDate() - birthDate.getDate();
+
+    if (month < 0 || (month === 0 && day < 0)) {
+      age--;
+    }
+
+    if (selectedAgeRange <= age) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   filterTable() {
     this.filteredEmployees = this.employees.filter((employee) => {
       const matchesRoleSelector = this.selectedRole === '' || employee.role?.id === this.selectedRole.id;
       const matchesGenderSelector = this.selectedGender === '' || employee.gender === this.selectedGender;
+      const matchesAgeRangeSelector = this.selectedAgeRange === 0 || this.employeeAgeFilter(this.selectedAgeRange, employee.dateOfBirth);
 
-      return matchesRoleSelector && matchesGenderSelector;
+      return matchesRoleSelector && matchesGenderSelector && matchesAgeRangeSelector;
     });
 
-    if (!this.selectedRole && !this.selectedGender) {
+    if (!this.selectedRole && !this.selectedGender && !this.selectedAgeRange) {
       this.filteredEmployees = this.employees;
     }
   }
 
-  navigateToEmployeeForm(id : number) {
+  navigateToEmployeeForm(id: number) {
     this.router.navigate(['/employee-form', id]);
   }
 

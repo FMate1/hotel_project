@@ -8,9 +8,10 @@
 	<table class="table table-striped">
 		<thead>
 			<tr>
-				<th scope="col"></th>
+				<th scope="col">#</th>
 				<th scope="col">Szoba típusa</th>
 				<th scope="col">Férőhelyek száma</th>
+				<th scope="col">Ár / éj</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -18,7 +19,8 @@
 				<th scope="row">{{ i + 1 | number }}</th>
 				<td>{{ room.type }}</td>
 				<td>{{ room.numBeds | number }}</td>
-				<td><button class="btn btn-outline-primary" (click)="navigateToRoom(room.type)">Foglalás és részletek</button></td>
+				<td>{{ room.price }} Ft</td>
+				<td><button class="btn btn-outline-primary" (click)="navigateToRoom(room.type, room.id)">Foglalás és részletek</button></td>
 			</tr>
 		</tbody>
 	</table>
