@@ -22,7 +22,7 @@ const routes: Routes = [
   {
     path: 'employee-list',
     component: EmployeeListComponent,
-    canActivate: [ () => inject(AuthService).preventGuestAccess() ]
+    canActivate: [() => inject(AuthService).preventGuestAccess(),() => inject(AuthService).onlyAdminAccess()]
   },
   {
     path: 'room-list',
@@ -31,12 +31,12 @@ const routes: Routes = [
   {
     path: 'employee-form',
     component: EmployeeFormComponent,
-    canActivate: [ () => inject(AuthService).preventGuestAccess() ]
+    canActivate: [() => inject(AuthService).preventGuestAccess(),() => inject(AuthService).onlyAdminAccess()]
   },
   {
     path: 'employee-form/:id',
     component: EmployeeFormComponent,
-    canActivate: [ () => inject(AuthService).preventGuestAccess() ]
+    canActivate: [() => inject(AuthService).preventGuestAccess(),() => inject(AuthService).onlyAdminAccess()]
   },
   {
     path: 'hotel-services-list',
@@ -44,11 +44,13 @@ const routes: Routes = [
   },
   {
     path: 'hotel-services-form',
-    component: HotelServicesFormComponent
+    component: HotelServicesFormComponent,
+    canActivate: [() => inject(AuthService).preventGuestAccess(),() => inject(AuthService).onlyAdminAccess()]
   },
   {
     path: 'hotel-services-form/:id',
-    component: HotelServicesFormComponent
+    component: HotelServicesFormComponent,
+    canActivate: [() => inject(AuthService).preventGuestAccess(),() => inject(AuthService).onlyAdminAccess()]
   },
   {
     path: 'registration-form',

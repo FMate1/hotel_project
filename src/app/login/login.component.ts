@@ -24,17 +24,20 @@ export class LoginComponent {
     private router: Router,
     private toastrService: ToastrService) { }
 
-  login() {
-    const loginData = this.loginForm.value as LoginDTO;
-
-    this.userService.login(loginData).subscribe({
-      next: (response) => {
-        this.authService.setToken(response.accessToken);
-        this.router.navigateByUrl('/');
-      },
-      error: (err) => {
-        this.toastrService.error(err.error.error, 'Error');
-      }
-    });
-  }
+    login() {
+      const loginData = this.loginForm.value as LoginDTO;
+  
+      this.userService.login(loginData).subscribe({
+        next: (response) => {
+          this.authService.setToken(response.accessToken);
+          this.authService.setIsAdmin(response.isAdmin);
+          this.toastrService.success('Üdvözöljük a weboldalon!', 'Sikeres bejelentkezés', {
+          timeOut: 3000});
+          this.router.navigateByUrl('/');
+        },
+        error: (err) => {
+          this.toastrService.error(err.error.error, 'Error');
+        }
+      });
+    }
 }

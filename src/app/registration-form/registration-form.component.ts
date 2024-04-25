@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { UserDTO } from 'models';
 import { UserService } from '../services/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration-form',
@@ -16,12 +17,14 @@ export class RegistrationFormComponent {
     email: this.formBuilder.control(''),
     password: this.formBuilder.control(''),
     firstName: this.formBuilder.control(''),
-    lastName: this.formBuilder.control('')
+    lastName: this.formBuilder.control(''),
+    isAdmin: false
   });
 
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
+    private router: Router,
     private toastrService: ToastrService
   ){ }
 
@@ -43,6 +46,7 @@ export class RegistrationFormComponent {
       this.userService.create(user).subscribe({
         next: (user) => {
           this.toastrService.success('Felhasználó sikeresen regisztrálva' , 'Siker');
+          this.router.navigateByUrl('');
         },
         error: (err) => { 
           this.toastrService.error('A felhasznéló regisztrálása nem sikerült.', 'Hiba');
