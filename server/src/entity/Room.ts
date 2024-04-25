@@ -18,6 +18,9 @@ export class Room implements RoomDTO {
     @Column()
     numBeds: number;
 
+    @Column()
+    price: number;
+
     @ManyToOne(() => Hotel, (hotel) => hotel.rooms, { eager: true })
     hotel: Hotel;
 

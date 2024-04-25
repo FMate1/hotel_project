@@ -48,6 +48,7 @@ export interface RoomDTO {
     roomNumber: number;
     type: string;
     numBeds: number;
+    price: number;
     hotel: null | HotelDTO;
 }
 

@@ -92,6 +92,7 @@ export function getRoutes() {
 
     router.post('/users', userController.create);
     router.post('/users/login', userController.login);
+    router.get('/users', userController.getCurrentUser);
 
     return router;
 }
