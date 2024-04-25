@@ -1,5 +1,6 @@
 import { AppDataSource } from "../data-source";
 import { Booking } from "../entity/Booking";
+import { User } from "../entity/User";
 import { Controller } from "./base.controller";
 
 export class BookingController extends Controller {
@@ -11,7 +12,7 @@ export class BookingController extends Controller {
 
             entity.id = null;
 
-            const roomType = entity.room.type;
+            const roomType = entity.room?.type;
             const checkInDate = entity.checkInDate;
             const checkOutDate = entity.checkOutDate;
 
@@ -38,11 +39,15 @@ export class BookingController extends Controller {
 
             const bookingCount = parseInt(sqlResult[0]["cnt"], 10);
 
+            const userId = req.auth.id;
+
+            entity.user = userId;
+
             if (bookingCount > 4) {
                 return res.status(400).json({ message: "Unable to save, there are too many reservations for this room type in this date range." });
             } else {
                 const result = await this.repository.save(entity);
-                
+
                 res.json(result);
             }
         } catch (err) {

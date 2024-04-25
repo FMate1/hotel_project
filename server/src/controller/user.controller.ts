@@ -28,41 +28,42 @@ export class UserController extends Controller {
         try {
             const user = await this.repository.findOne({
                 where: { email: req.body.email },
-                select: ['id', 'password']
+                select: [ 'id', 'password', 'isAdmin' ]
             });
-
+    
             if (!user) {
                 return this.handleError(res, null, 401, 'Incorrect email or password.');
             }
-
+    
             const passwordMatches = await bcrypt.compare(req.body.password, user.password);
             if (!passwordMatches) {
                 return this.handleError(res, null, 401, 'Incorrect email or password.');
             }
-
-            const token = jwt.sign({ id: user.id }, 'mySecretKey', { expiresIn: '2w' });
-            res.json({ accessToken: token });
+    
+            const token = jwt.sign({ id: user.id, isAdmin: user.isAdmin }, 'mySecretKey', { expiresIn: '2w' });
+            res.json({ accessToken: token, isAdmin: user.isAdmin });
         } catch (err) {
             this.handleError(res, err);
         }
     };
 
-    getCurrentUser = async (req, res) => {
+    deactivate = async (req, res) => {
         try {
-            const id = req.sesson.userId;   //Itt van a fő probléma szerintem, ide nem tudom mit írjak
-
-            if (!id) {
-                return res.status(401).json({ error: 'Not authenticated' });
+            const userToDeactivate = await this.repository.findOneBy({
+                id: req.params.id
+            });
+    
+            if (!userToDeactivate) {
+                return this.handleError(res, null, 404, 'User not found.');
             }
-
-            const entity = await this.repository.findOneBy({ id: id });
-            if (!entity) {
-                return this.handleError(res, null, 404, 'Not found.');
-            }
-
-            res.json(entity);
+    
+            userToDeactivate.isActive = true;
+            await this.repository.save(userToDeactivate);
+    
+            res.status(200).send('User deactivated.');
         } catch (err) {
-            res.status(500).json({ error: 'Error fetching user' });
+            this.handleError(res, err);
         }
     };
+
 }

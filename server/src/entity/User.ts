@@ -22,6 +22,12 @@ export class User implements UserDTO {
     @Column()
     lastName: string;
 
+    @Column()
+    isActive: boolean;
+
+    @Column()
+    isAdmin: boolean;
+
     @OneToMany(() => Booking, (booking) => booking.user)
     bookings: Booking[];
 

@@ -77,6 +77,8 @@ export interface UserDTO {
     password: string;
     firstName: string;
     lastName: string;
+    isActive: boolean;
+    isAdmin: boolean;
 }
 
 export interface LoginDTO {
@@ -86,4 +88,5 @@ export interface LoginDTO {
 
 export interface AccessTokenDTO {
     accessToken: string;
+    isAdmin: boolean;
 }
