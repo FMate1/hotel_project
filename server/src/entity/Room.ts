@@ -9,9 +9,6 @@ export class Room implements RoomDTO {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ unique: true })
-    roomNumber: number;
-
     @Column()
     type: string;
 

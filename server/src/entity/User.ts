@@ -22,6 +22,9 @@ export class User implements UserDTO {
     @Column()
     lastName: string;
 
+    @Column({ type: 'date' })
+    dateOfBirth: string;
+
     @Column()
     isActive: boolean;
 

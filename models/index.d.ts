@@ -45,7 +45,6 @@ export interface GuestFeedbackDTO {
 
 export interface RoomDTO {
     id: number;
-    roomNumber: number;
     type: string;
     numBeds: number;
     price: number;
@@ -77,6 +76,7 @@ export interface UserDTO {
     password: string;
     firstName: string;
     lastName: string;
+    dateOfBirth: string;
     isActive: boolean;
     isAdmin: boolean;
 }
