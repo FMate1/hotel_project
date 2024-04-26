@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BookingService } from '../services/booking.service';
 import { FormBuilder } from '@angular/forms';
 import { BookingDTO, RoleDTO, UserDTO } from 'models';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-double-room',
@@ -14,7 +15,8 @@ export class DoubleRoomComponent {
   constructor(
     private toastrService: ToastrService,
     private bookingService: BookingService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   bookingForm = this.formBuilder.group({
@@ -28,8 +30,12 @@ export class DoubleRoomComponent {
     role: this.formBuilder.control<null | RoleDTO>(null),
   });
 
+  roomId = this.activatedRoute.snapshot.params['id'];
+
   bookRoom() {
     const booking = this.bookingForm.value as BookingDTO;
+
+    booking.room = this.roomId;
 
     this.bookingService.create(booking).subscribe({
       next: (booking) => {

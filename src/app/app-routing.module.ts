@@ -13,6 +13,7 @@ import { TwinRoomComponent } from './twin-room/twin-room.component';
 import { FamilyRoomComponent } from './family-room/family-room.component';
 import { AttractionsActivitiesComponent } from './attractions-activities/attractions-activities.component';
 import { HotelServicesFormComponent } from './hotel-services-form/hotel-services-form.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,11 @@ const routes: Routes = [
   {
     path: 'employee-form/:id',
     component: EmployeeFormComponent,
+    canActivate: [() => inject(AuthService).preventGuestAccess(),() => inject(AuthService).onlyAdminAccess()]
+  },
+  {
+    path: 'user-list',
+    component: UserListComponent,
     canActivate: [() => inject(AuthService).preventGuestAccess(),() => inject(AuthService).onlyAdminAccess()]
   },
   {

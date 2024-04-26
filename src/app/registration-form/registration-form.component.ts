@@ -18,6 +18,8 @@ export class RegistrationFormComponent {
     password: this.formBuilder.control(''),
     firstName: this.formBuilder.control(''),
     lastName: this.formBuilder.control(''),
+    dateOfBirth: this.formBuilder.control(new Date().toISOString().split('T')[0]),
+    isActive: true,
     isAdmin: false
   });
 
@@ -31,7 +33,9 @@ export class RegistrationFormComponent {
   isValidUser = true;
 
   validateForm(inputForm: UserDTO): void {
-    if (!inputForm.email || !inputForm.password || !inputForm.firstName || !inputForm.lastName ) {
+    if (!inputForm.email || !inputForm.password || !inputForm.firstName || !inputForm.lastName 
+      || !inputForm.dateOfBirth
+    ) {
       this.isValidUser = false;
     }
   }

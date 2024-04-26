@@ -1,0 +1,80 @@
+<div class="container">
+
+	<div class="row justify-content-md-center">
+		<div class="col-md-12">
+			<h4>Felhasználók listája</h4>
+			<hr>
+		</div>
+	</div>
+
+	<!-- <div class="container">
+		<div class="row">
+			<div class="col-md-3">
+				<label for="selectedRole" class="form-label">Szerepkör</label>
+				<select name="selectedRole" id="selectedRole" class="form-select" aria-label=".form-select-sm example"
+					[(ngModel)]="selectedRole" (ngModelChange)="filterTable()">
+					<option value="">Összes</option>
+					<option *ngFor="let role of roles" [ngValue]="{ id: role.id }">
+						{{ role.title }}
+					</option>
+				</select>
+			</div>
+			<div class="col-md-2">
+				<label for="selectedGender" class="form-label">Nem</label>
+				<select name="selectedGender" id="selectedGender" class="form-select"
+					aria-label=".form-select-sm example" [(ngModel)]="selectedGender" (ngModelChange)="filterTable()">
+					<option value="">Összes</option>
+					<option value="female">Nő</option>
+					<option value="male">Férfi</option>
+				</select>
+			</div>
+			<div class="col-md-2">
+				<label for="selectedAgeRange" class="form-label">Életkor</label>
+				<select name="selectedAgeRange" id="selectedAgeRange" class="form-select"
+					aria-label=".form-select-sm example" [(ngModel)]="selectedAgeRange" (ngModelChange)="filterTable()">
+					<option value="0">Összes</option>
+					<option value="25">25+</option>
+					<option value="30">30+</option>
+					<option value="40">40+</option>
+					<option value="50">50+</option>
+				</select>
+			</div>
+		</div>
+	</div> -->
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Név</th>
+                <th scope="col">Email</th>
+				<th scope="col">Szül. idő</th>
+				<th scope="col">Aktív</th>
+				<th scope="col">Admin</th>
+			</tr>
+		</thead>
+		<tbody>
+			<ng-container *ngFor="let user of users; let i = index"> <!-- filteredUsers -->
+				<tr>
+					<th scope="row">{{ i + 1 | number }}</th>
+					<td>{{ user.lastName }} {{ user.firstName }}</td>
+					<td>{{ user.email }}</td>
+					<td>{{ user.dateOfBirth }}</td>
+                    <td>
+						<span *ngIf="user.isActive === true; then thenBlock else elseBlock"></span>
+						<ng-template #thenBlock>Aktív</ng-template>
+						<ng-template #elseBlock>Inaktív</ng-template>
+					</td>
+                    <td>
+						<span *ngIf="user.isAdmin === true; then thenBlock else elseBlock"></span>
+						<ng-template #thenBlock>Admin</ng-template>
+						<ng-template #elseBlock>Vendég</ng-template>
+					</td>
+					<td>
+						<button class="btn btn-sm btn-outline-danger" (click)="deactivateUser(user)">Deaktiválás</button>
+					</td>
+				</tr>
+			</ng-container>
+		</tbody>
+	</table>
+</div>

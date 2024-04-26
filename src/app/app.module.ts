@@ -21,6 +21,7 @@ import { TwinRoomComponent } from './twin-room/twin-room.component';
 import { FamilyRoomComponent } from './family-room/family-room.component';
 import { AttractionsActivitiesComponent } from './attractions-activities/attractions-activities.component';
 import { HotelServicesFormComponent } from './hotel-services-form/hotel-services-form.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { HotelServicesFormComponent } from './hotel-services-form/hotel-services
     TwinRoomComponent,
     FamilyRoomComponent,
     AttractionsActivitiesComponent,
-    HotelServicesFormComponent
+    HotelServicesFormComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,

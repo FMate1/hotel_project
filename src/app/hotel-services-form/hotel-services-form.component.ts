@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { HotelService } from '../services/hotel.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HotelServicesService } from '../services/hotel-services.service';
 import { HotelDTO, ServiceDTO } from 'models';
 
@@ -18,7 +18,8 @@ export class HotelServicesFormComponent implements OnInit {
     private toastrService: ToastrService,
     private hotelServicesService: HotelServicesService,
     private hotelService: HotelService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) { }
 
   hotelServiceForm = this.formBuilder.group({
@@ -73,6 +74,7 @@ export class HotelServicesFormComponent implements OnInit {
         this.hotelServicesService.create(hotelService).subscribe({
           next: (hotelService) => {
             this.toastrService.success('Szolgáltatás sikeresen rögzítve, id:' + hotelService.id , 'Siker');
+            this.router.navigate(['/hotel-services-list']);
           },
           error: (err) => { 
             this.toastrService.error('A szolgáltatás rögzítése nem sikerült.', 'Hiba');
@@ -82,6 +84,7 @@ export class HotelServicesFormComponent implements OnInit {
         this.hotelServicesService.update(hotelService).subscribe({
           next: (hotelService) => {
             this.toastrService.success('A szolgáltatás adatai sikeresen szerkesztve.' , 'Siker');
+            this.router.navigate(['/hotel-services-list']);
           },
           error: (err) => { 
             this.toastrService.error('A szolgáltatás adatainak szerkesztése nem sikerült.', 'Hiba');

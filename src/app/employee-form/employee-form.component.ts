@@ -5,7 +5,7 @@ import { EmployeeDTO, HotelDTO, RoleDTO } from 'models';
 import { EmployeeService } from '../services/employee.service';
 import { HotelService } from '../services/hotel.service';
 import { RoleService } from '../services/role.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee-form',
@@ -40,7 +40,8 @@ export class EmployeeFormComponent implements OnInit {
     private employeeService: EmployeeService,
     private hotelService: HotelService,
     private roleService: RoleService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -113,6 +114,7 @@ export class EmployeeFormComponent implements OnInit {
         this.employeeService.create(employee).subscribe({
           next: (employee) => {
             this.toastrService.success('Alkalmazott sikeresen rögzítve, id:' + employee.id , 'Siker');
+            this.router.navigate(['/employee-list']);
           },
           error: (err) => { 
             this.toastrService.error('Az alkalmazott rögzítése nem sikerült.', 'Hiba');
@@ -122,6 +124,7 @@ export class EmployeeFormComponent implements OnInit {
         this.employeeService.update(employee).subscribe({
           next: (employee) => {
             this.toastrService.success('Alkalmazott adatai sikeresen szerkesztve.' , 'Siker');
+            this.router.navigate(['/employee-list']);
           },
           error: (err) => { 
             this.toastrService.error('Alkalmazott adatainak szerkesztése nem sikerült.', 'Hiba');
