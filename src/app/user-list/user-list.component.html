@@ -54,7 +54,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<ng-container *ngFor="let user of users; let i = index"> <!-- filteredUsers -->
+			<ng-container *ngFor="let user of users; let i = index"> <!-- filteredUsers users helyett -->
 				<tr>
 					<th scope="row">{{ i + 1 | number }}</th>
 					<td>{{ user.lastName }} {{ user.firstName }}</td>
@@ -66,12 +66,15 @@
 						<ng-template #elseBlock>Inaktív</ng-template>
 					</td>
                     <td>
-						<span *ngIf="user.isAdmin === true; then thenBlock else elseBlock"></span>
-						<ng-template #thenBlock>Admin</ng-template>
-						<ng-template #elseBlock>Vendég</ng-template>
+						<span *ngIf="user.isAdmin === true; then thenBlock2 else elseBlock2"></span>
+						<ng-template #thenBlock2>Admin</ng-template>
+						<ng-template #elseBlock2>Vendég</ng-template>
 					</td>
 					<td>
-						<button class="btn btn-sm btn-outline-danger" (click)="deactivateUser(user)">Deaktiválás</button>
+						<button class="btn btn-sm btn-outline-primary" (click)="toggleActiveStatus(user)">Aktivált állapot módosítása</button>
+					</td>
+					<td>
+						<button class="btn btn-sm btn-outline-primary" (click)="toggleAdminStatus(user)">Admin állapot módosítása</button>
 					</td>
 				</tr>
 			</ng-container>

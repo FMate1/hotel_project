@@ -16,7 +16,7 @@ export class UserListComponent implements OnInit {
     private userService: UserService,
     private toastrService: ToastrService,
     private router: Router
-  ){ this.loadData(); }
+  ) { this.loadData(); }
 
   ngOnInit(): void {
     this.userService.getAll().subscribe({
@@ -41,15 +41,26 @@ export class UserListComponent implements OnInit {
     );
   }
 
-  deactivateUser(user: UserDTO) {
-    this.userService.deactivate(user).subscribe({
+  toggleActiveStatus(user: UserDTO) {
+    this.userService.toggleActiveStatus(user).subscribe({
       next: () => {
       },
       error: (err) => {
-        this.toastrService.success('A felhasználó sikeresen inaktiválva!');
-        window.location.reload();
+        this.toastrService.success('A felhasználó sikeresen módosítva!');
+        this.loadData();
       }
     });
-}
+  }
+
+  toggleAdminStatus(user: UserDTO) {
+    this.userService.toggleAdminStatus(user).subscribe({
+      next: () => {
+      },
+      error: (err) => {
+        this.toastrService.success('A felhasználó sikeresen módosítva!');
+        this.loadData();
+      }
+    });
+  }
 
 }

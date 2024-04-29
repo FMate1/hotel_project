@@ -32,19 +32,37 @@ export class DoubleRoomComponent {
 
   roomId = this.activatedRoute.snapshot.params['id'];
 
+  validateBookingForm(inputForm: BookingDTO): boolean {
+    const ctn = inputForm.numAdults + inputForm.numChildren;
+
+    if (ctn <= 0 || ctn > 2) {
+      return false;
+    } else if (inputForm.numAdults < 1) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   bookRoom() {
     const booking = this.bookingForm.value as BookingDTO;
 
     booking.room = this.roomId;
 
-    this.bookingService.create(booking).subscribe({
-      next: (booking) => {
-        this.toastrService.success('Sikeres foglalás!', 'Siker');
-      },
-      error: (err) => {
-        this.toastrService.error('Sikertelen foglalás', 'Hiba');
-      }
-    });
+    if (this.validateBookingForm(booking)) {
+      this.bookingService.create(booking).subscribe({
+        next: (booking) => {
+          this.toastrService.success('Sikeres foglalás!', 'Siker');
+        },
+        error: (err) => {
+          this.toastrService.error('Sikertelen foglalás.', 'Hiba');
+        }
+      });
+    } else {
+      this.toastrService.error('Sikertelen foglalás, hibás adatok.', 'Hiba');
+    }
+
+
   }
 
 }

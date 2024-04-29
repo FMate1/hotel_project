@@ -29,8 +29,12 @@ export class UserService {
     return this.http.post<AccessTokenDTO>('/api/users/login', data);
   }
 
-  deactivate(user: UserDTO) {
+  toggleActiveStatus(user: UserDTO) {
     return this.http.post<UserDTO>(`/api/users/${user.id}`, user);
+  }
+
+  toggleAdminStatus(user: UserDTO) {
+    return this.http.put<UserDTO>(`/api/users/${user.id}`, user);
   }
   
 }

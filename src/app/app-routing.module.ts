@@ -14,6 +14,7 @@ import { FamilyRoomComponent } from './family-room/family-room.component';
 import { AttractionsActivitiesComponent } from './attractions-activities/attractions-activities.component';
 import { HotelServicesFormComponent } from './hotel-services-form/hotel-services-form.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { UserBookingsListComponent } from './user-bookings-list/user-bookings-list.component';
 
 const routes: Routes = [
   {
@@ -57,6 +58,11 @@ const routes: Routes = [
     path: 'hotel-services-form/:id',
     component: HotelServicesFormComponent,
     canActivate: [() => inject(AuthService).preventGuestAccess(),() => inject(AuthService).onlyAdminAccess()]
+  },
+  {
+    path: 'user-bookings-list',
+    component: UserBookingsListComponent,
+    canActivate: [() => inject(AuthService).preventGuestAccess()]
   },
   {
     path: 'registration-form',

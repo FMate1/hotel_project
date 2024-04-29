@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="row justify-content-md-center">
+		<div class="col-md-12">
+			<h4>Foglalások listája</h4>
+			<hr>
+		</div>
+	</div>
+
+    <table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Foglalás dátuma</th>
+                <th scope="col">Érkezés napja</th>
+				<th scope="col">Távozás napja</th>
+				<th scope="col">Felnőttek száma</th>
+				<th scope="col">Gyerekek száma</th>
+                <th scope="col">Foglalt szoba</th>
+			</tr>
+		</thead>
+		<tbody>
+			<ng-container *ngFor="let userBooking of userBookings; let i = index"> <!-- filteredUserBookings userBookings helyett -->
+				<tr>
+					<th scope="row">{{ i + 1 | number }}</th>
+					<td>{{ userBooking.bookingDate }}</td>
+					<td>{{ userBooking.checkInDate }}</td>
+					<td>{{ userBooking.checkOutDate }}</td>
+                    <td>{{ userBooking.numAdults }}</td>
+                    <td>{{ userBooking.numChildren }}</td>
+                    <td>{{ userBooking.room?.type }}</td>
+					<td>
+						<button class="btn btn-sm btn-outline-danger" (click)="deleteBooking(userBooking)">Törlés</button>
+					</td>
+				</tr>
+			</ng-container>
+		</tbody>
+	</table>
+</div>

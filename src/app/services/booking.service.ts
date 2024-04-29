@@ -30,4 +30,8 @@ export class BookingService {
     return this.http.delete('api/bookings/' + id);
   }
 
+  getUserBookings() {
+    return this.http.get<BookingDTO[]>('api/bookings');
+  }
+
 }

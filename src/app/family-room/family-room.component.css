@@ -34,3 +34,7 @@ ul {
         transform: translateY(0);
     }
 }
+
+#booking-btn {
+    margin-top: 40px;
+}

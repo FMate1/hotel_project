@@ -22,6 +22,7 @@ import { FamilyRoomComponent } from './family-room/family-room.component';
 import { AttractionsActivitiesComponent } from './attractions-activities/attractions-activities.component';
 import { HotelServicesFormComponent } from './hotel-services-form/hotel-services-form.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { UserBookingsListComponent } from './user-bookings-list/user-bookings-list.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { UserListComponent } from './user-list/user-list.component';
     FamilyRoomComponent,
     AttractionsActivitiesComponent,
     HotelServicesFormComponent,
-    UserListComponent
+    UserListComponent,
+    UserBookingsListComponent
   ],
   imports: [
     BrowserModule,
