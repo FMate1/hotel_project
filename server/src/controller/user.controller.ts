@@ -47,20 +47,49 @@ export class UserController extends Controller {
         }
     };
 
-    deactivate = async (req, res) => {
+    toggleActiveStatus = async (req, res) => {
         try {
-            const userToDeactivate = await this.repository.findOneBy({
+            const userToToggleActiveStatus = await this.repository.findOneBy({
                 id: req.params.id
             });
     
-            if (!userToDeactivate) {
+            if (!userToToggleActiveStatus) {
                 return this.handleError(res, null, 404, 'User not found.');
             }
+
+            if (userToToggleActiveStatus.isActive === true) {
+                userToToggleActiveStatus.isActive = false;
+            } else {
+                userToToggleActiveStatus.isActive = true;
+            }
+
+            await this.repository.save(userToToggleActiveStatus);
     
-            userToDeactivate.isActive = true;
-            await this.repository.save(userToDeactivate);
+            res.status(200).send('User active status toggled.');
+        } catch (err) {
+            this.handleError(res, err);
+        }
+    };
+
+    toggleAdminStatus = async (req, res) => {
+        try {
+            const userToToggleAdminStatus = await this.repository.findOneBy({
+                id: req.params.id
+            });
     
-            res.status(200).send('User deactivated.');
+            if (!userToToggleAdminStatus) {
+                return this.handleError(res, null, 404, 'User not found.');
+            }
+
+            if (userToToggleAdminStatus.isAdmin === true) {
+                userToToggleAdminStatus.isAdmin = false;
+            } else {
+                userToToggleAdminStatus.isAdmin = true;
+            }
+
+            await this.repository.save(userToToggleAdminStatus);
+    
+            res.status(200).send('User admin status toggled.');
         } catch (err) {
             this.handleError(res, err);
         }

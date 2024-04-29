@@ -1,3 +1,4 @@
+import { BookingDTO } from "../../../models";
 import { AppDataSource } from "../data-source";
 import { Booking } from "../entity/Booking";
 import { User } from "../entity/User";
@@ -37,6 +38,8 @@ export class BookingController extends Controller {
                 checkOutDate
             ]);
 
+            console.log(sqlResult);
+
             const bookingCount = parseInt(sqlResult[0]["cnt"], 10);
 
             const userId = req.auth.id;
@@ -54,4 +57,25 @@ export class BookingController extends Controller {
             this.handleError(res, err);
         }
     };
+
+    getUserBookings = async (req, res) => {
+        try {
+            const userId = req.auth.id;
+            
+            const userBookings = await this.repository.find({
+                where: {
+                    user: {
+                        id: userId
+                    }
+                }
+            });
+    
+            res.json(userBookings);
+        } catch (err) {
+            this.handleError(res, err);
+        }
+    };
+    
+    
+
 }
