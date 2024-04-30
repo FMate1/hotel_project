@@ -4,22 +4,9 @@ import { HotelController } from './controller/hotel.controller';
 import { EmployeeController } from './controller/employee.controller';
 import { UserController } from './controller/user.controller';
 import { checkUser, onlyAdmin } from './protect-routes';
-import { BillController } from './controller/bill.controller';
 import { BookingController } from './controller/booking.controller';
-import { GuestFeedBackController } from './controller/guestFeedback.controller';
 import { RoomController } from './controller/room.controller';
 import { ServiceController } from './controller/service.controller';
-
-
-/*
-
-checkUser nem mindenhova kell, át kell majd nézni + onlyAdmin
-
-nem feltétlen kell minden
-
-*/
-
-
 
 export function getRoutes() {
     const router = express.Router();
@@ -31,8 +18,6 @@ export function getRoutes() {
     router.post('/roles', checkUser, roleController.create);
     router.put('/roles', checkUser, roleController.update);
     router.delete('/roles/:id', checkUser, roleController.delete);
-    router.put('/roles', checkUser, roleController.activateLocationStatus);
-    router.put('/roles', checkUser, roleController.deactivateLocationStatus);
 
     const hotelController = new HotelController();
 
@@ -50,14 +35,6 @@ export function getRoutes() {
     router.put('/employees', checkUser, onlyAdmin, employeeController.update);
     router.delete('/employees/:id', checkUser, onlyAdmin, employeeController.delete);
 
-    const billController = new BillController();
-
-    router.get('/bills', billController.getAll);
-    router.get('/bills/:id', billController.getOne);
-    router.post('/bills', checkUser, billController.create);
-    router.put('/bills', checkUser, billController.update);
-    router.delete('/bills/:id', checkUser, billController.delete);
-
     const bookingController = new BookingController();
 
     //router.get('/bookings', bookingController.getAll);
@@ -66,14 +43,6 @@ export function getRoutes() {
     router.post('/bookings', checkUser, bookingController.create);
     router.put('/bookings', checkUser, onlyAdmin, bookingController.update);
     router.delete('/bookings/:id', checkUser, bookingController.delete);
-
-    const guestFeedbackController = new GuestFeedBackController();
-
-    router.get('/guestFeedbacks', guestFeedbackController.getAll);
-    router.get('/guestFeedbacks/:id', guestFeedbackController.getOne);
-    router.post('/guestFeedbacks', checkUser, guestFeedbackController.create);
-    router.put('/guestFeedbacks', checkUser, guestFeedbackController.update);
-    router.delete('/guestFeedbacks/:id', checkUser, onlyAdmin, guestFeedbackController.delete);
 
     const roomController = new RoomController();
 

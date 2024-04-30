@@ -2,7 +2,6 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm"
 import { HotelDTO } from "../../../models"
 import { Employee } from "./Employee";
 import { Service } from "./Service";
-import { GuestFeedback } from "./GuestFeedback";
 import { Room } from "./Room";
 
 @Entity()
@@ -37,9 +36,6 @@ export class Hotel implements HotelDTO {
 
     @OneToMany(() => Service, (service) => service.hotel)
     services: Service[];
-
-    @OneToMany(() => GuestFeedback, (guestFeedback) => guestFeedback.hotel)
-    guestFeedbacks: GuestFeedback[];
 
     @OneToMany(() => Room, (room) => room.hotel)
     rooms: Room[];

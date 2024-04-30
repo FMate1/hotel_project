@@ -31,14 +31,14 @@ export class BookingController extends Controller {
             const sqlResult = await AppDataSource.manager.query(query, [
                 roomType,
                 checkInDate,
-                checkOutDate,
                 checkInDate,
+                checkOutDate,
                 checkOutDate,
                 checkInDate,
                 checkOutDate
             ]);
 
-            console.log(sqlResult);
+            //console.log(sqlResult);
 
             const bookingCount = parseInt(sqlResult[0]["cnt"], 10);
 

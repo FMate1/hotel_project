@@ -19,7 +19,7 @@ export class Employee implements EmployeeDTO {
     dateOfBirth: string;
 
     @Column({ unique: true })
-    taxNumber: string;
+    taxIdNumber: string;
 
     @Column({ unique: true })
     TAJ: string;

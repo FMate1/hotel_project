@@ -72,38 +72,6 @@ export abstract class Controller {
         }
     };
 
-
-    //ACTIVETE MEG DEACTIVATE LEHET EGYBEN, HA VALAMI MÁSHOZ KÉNE
-
-
-    activateLocationStatus = async (req, res) => {
-        try {
-            const id = req.params.id;
-            const entity = await this.repository.findOneBy({ id: id });
-            if (!entity) {
-                return this.handleError(res, null, 404, 'Not found.');
-            }
-
-            res.json(entity);
-        } catch (err) {
-            this.handleError(res, err);
-        }
-    };
-
-    deactivateLocationStatus = async (req, res) => {
-        try {
-            const id = req.params.id;
-            const entity = await this.repository.findOneBy({ id: id });
-            if (!entity) {
-                return this.handleError(res, null, 404, 'Not found.');
-            }
-
-            res.json(entity);
-        } catch (err) {
-            this.handleError(res, err);
-        }
-    };
-
     handleError(res, err = null, status = 500, message = 'Unexpected server error') {
         if (err) {
             console.error(err);

@@ -9,7 +9,7 @@ export interface EmployeeDTO {
     name: string;
     gender: string;
     dateOfBirth: string;
-    taxNumber: string;
+    taxIdNumber: string;
     TAJ: string;
     phoneNo: string;
     email: string;
@@ -36,27 +36,12 @@ export interface ServiceDTO {
     hotel: null | HotelDTO;
 }
 
-export interface GuestFeedbackDTO {
-    id: number;
-    opinion: string;
-    user: null | UserDTO;
-    hotel: null | HotelDTO;
-}
-
 export interface RoomDTO {
     id: number;
     type: string;
     numBeds: number;
     price: number;
     hotel: null | HotelDTO;
-}
-
-export interface BillDTO {
-    id: number;
-    paymentDate: string;
-    paymentMethod: string;
-    booking: null | BookingDTO;
-    user: null | UserDTO;
 }
 
 export interface BookingDTO {

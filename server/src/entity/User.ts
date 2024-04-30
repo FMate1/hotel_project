@@ -1,8 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { UserDTO } from "../../../models";
 import { Booking } from "./Booking";
-import { Bill } from "./Bill";
-import { GuestFeedback } from "./GuestFeedback";
 
 @Entity()
 export class User implements UserDTO {
@@ -33,11 +31,5 @@ export class User implements UserDTO {
 
     @OneToMany(() => Booking, (booking) => booking.user)
     bookings: Booking[];
-
-    @OneToMany(() => Bill, (bill) => bill.user)
-    bills: Bill[];
-
-    @OneToMany(() => GuestFeedback, (guestFeedback) => guestFeedback.user)
-    guestFeedbacks: GuestFeedback[];
     
 }
