@@ -1,0 +1,56 @@
+<div class="container animate-up">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Kétágyas szoba</h2>
+            <hr>
+            <p>
+                A szoba kényelmesen elrendezett, két különálló ággyal, 
+                amelyeket igény szerint közelebb is lehet helyezni egymáshoz. 
+                A szoba modern felszereltséggel rendelkezik, beleértve az ingyenes Wi-Fi-t, 
+                síkképernyős TV-t és minibárt. A friss, tiszta ágynemű és a tágas, 
+                jól felszerelt fürdőszoba még kellemesebbé teszi az itt-tartózkodást. 
+                Tökéletes választás üzleti utazóknak vagy azoknak, akik értékelik a kényelmet és a praktikus elrendezést.
+            </p>
+            <ul>
+                <li>Kettő egyszemélyes ágy</li>
+                <li>Saját fürdőszoba</li>
+                <li>Síkképernyős TV</li>
+                <li>Ingyenes Wi-Fi</li>
+                <li>Minibár</li>
+            </ul>
+            <hr>
+        </div>
+        <div class="col-md-6">
+            <img src="../../assets/images/twin-room.jpg" alt="Twin Room" class="img-fluid">
+        </div>
+    </div>
+    <div class="row">
+        <form [formGroup]="bookingForm" class="col-md-12">
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="checkInDate" class="form-label">Érkezés</label>
+                    <input type="date" class="form-control" id="checkInDate" name="checkInDate" formControlName="checkInDate">
+                </div>
+                <div class="col-md-3">
+                    <label for="checkOutDate" class="form-label">Távozás</label>
+                    <input type="date" class="form-control" id="checkOutDate" name="checkOutDate" formControlName="checkOutDate">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="numAdults" class="form-label">Felnőttek száma</label>
+                    <input type="number" class="form-control" id="numAdults" name="numAdults" formControlName="numAdults">
+                </div>
+                <div class="col-md-3">
+                    <label for="numChildren" class="form-label">Gyerekek száma</label>
+                    <input type="number" class="form-control" id="numChildren" name="numChildren" formControlName="numChildren">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row" id="booking-btn">
+        <div class="col-md-6 text-center">
+            <button class="btn btn-primary" (click)="bookRoom()">Foglalás</button>
+        </div>
+    </div>
+</div>

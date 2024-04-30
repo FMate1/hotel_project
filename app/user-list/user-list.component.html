@@ -1,0 +1,71 @@
+<div class="container">
+
+	<div class="row justify-content-md-center">
+		<div class="col-md-12">
+			<h4>Felhasználók listája</h4>
+			<hr>
+		</div>
+	</div>
+
+	<!-- <div class="container">
+		<div class="row">
+			<div class="col-md-2">
+				<label for="selectedIsActive" class="form-label">Aktív állapot</label>
+				<select name="selectedIsActive" id="selectedIsActive" class="form-select" aria-label=".form-select-sm example"
+					[(ngModel)]="selectedIsActive" (ngModelChange)="filterTable()">
+					<option value="">Összes</option>
+					<option value=true>Aktív</option>
+					<option value=false>Inaktív</option>
+				</select>
+			</div>
+			<div class="col-md-2">
+				<label for="selectedIsAdmin" class="form-label">Admin jog</label>
+				<select name="selectedIsAdmin" id="selectedIsAdmin" class="form-select"
+					aria-label=".form-select-sm example" [(ngModel)]="selectedIsAdmin" (ngModelChange)="filterTable()">
+					<option value="">Összes</option>
+					<option value=true>Admin</option>
+					<option value=false>Vendég</option>
+				</select>
+			</div>
+		</div>
+	</div> -->
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Név</th>
+                <th scope="col">Email</th>
+				<th scope="col">Szül. idő</th>
+				<th scope="col">Aktív</th>
+				<th scope="col">Admin</th>
+			</tr>
+		</thead>
+		<tbody>
+			<ng-container *ngFor="let user of users; let i = index">	<!-- filteredUsers -->
+				<tr>
+					<th scope="row">{{ i + 1 | number }}</th>
+					<td>{{ user.lastName }} {{ user.firstName }}</td>
+					<td>{{ user.email }}</td>
+					<td>{{ user.dateOfBirth }}</td>
+                    <td>
+						<span *ngIf="user.isActive === true; then thenBlock else elseBlock"></span>
+						<ng-template #thenBlock>Aktív</ng-template>
+						<ng-template #elseBlock>Inaktív</ng-template>
+					</td>
+                    <td>
+						<span *ngIf="user.isAdmin === true; then thenBlock2 else elseBlock2"></span>
+						<ng-template #thenBlock2>Admin</ng-template>
+						<ng-template #elseBlock2>Vendég</ng-template>
+					</td>
+					<td>
+						<button class="btn btn-sm btn-outline-primary" (click)="toggleActiveStatus(user)">Aktivált állapot módosítása</button>
+					</td>
+					<td>
+						<button class="btn btn-sm btn-outline-primary" (click)="toggleAdminStatus(user)">Admin állapot módosítása</button>
+					</td>
+				</tr>
+			</ng-container>
+		</tbody>
+	</table>
+</div>

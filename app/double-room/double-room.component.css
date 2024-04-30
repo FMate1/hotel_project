@@ -1,0 +1,41 @@
+h2 {
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1.2rem;
+    text-align: justify;
+}
+
+ul {
+    font-size: 1.2rem;
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.img-fluid {
+    border-radius: 10px;
+    margin-top: 40px;
+}
+
+.animate-up {
+    opacity: 0;
+    transform: translateY(100%);
+    animation: slideUp 0.8s ease-in-out forwards;
+    animation-delay: 0.2s;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#booking-btn {
+    margin-top: 40px;
+}

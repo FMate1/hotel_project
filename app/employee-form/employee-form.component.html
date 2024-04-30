@@ -1,0 +1,70 @@
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-md-6">
+            <h4>Új alkalmazott rögzítése</h4>
+            <hr>
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-6">
+            <form [formGroup]="employeeForm">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Alkalmazott teljes neve</label>
+                    <input type="text" class="form-control" id="name" name="name" formControlName="name">
+                </div>
+                <div class="mb-3">
+                    <label for="gender" class="form-label">Nem</label>
+                    <select name="gender" id="gender" class="form-select" formControlName="gender">
+                        <option value="female">Nő</option>
+                        <option value="male">Férfi</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="dateOfBirth" class="form-label">Születési dátum</label>
+                    <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth"
+                        formControlName="dateOfBirth">
+                </div>
+                <div class="mb-3">
+                    <label for="taxIdNumber" class="form-label">Adóazonosító jel</label>
+                    <input type="text" class="form-control" id="taxIdNumber" name="taxIdNumber"
+                        formControlName="taxIdNumber">
+                </div>
+                <div class="mb-3">
+                    <label for="TAJ" class="form-label">TAJ szám</label>
+                    <input type="text" class="form-control" id="TAJ" name="TAJ" formControlName="TAJ">
+                </div>
+                <div class="mb-3">
+                    <label for="phoneNo" class="form-label">Telefonszám</label>
+                    <input type="text" class="form-control" id="phoneNo" name="phoneNo" formControlName="phoneNo">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="text" class="form-control" id="email" name="email" formControlName="email">
+                </div>
+                <div class="mb-3">
+                    <label for="salary" class="form-label">Fizetés</label>
+                    <input type="number" class="form-control" id="salary" name="salary" formControlName="salary">
+                </div>
+                <div class="mb-3">
+                    <label for="hotel" class="form-label">Hotel</label>
+                    <select name="hotel" id="hotel" class="form-select" formControlName="hotel">
+                        <option *ngFor="let hotel of hotels" [ngValue]="{ id: hotel.id}">
+                            {{ hotel.hotelName }}
+                        </option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="role" class="form-label">Szerepkör</label>
+                    <select name="role" id="role" class="form-select" formControlName="role">
+                        <option *ngFor="let role of roles" [ngValue]="{ id: role.id }">
+                            {{ role.title }}
+                        </option>
+                    </select>
+                </div>
+                <div class="text-end">
+                    <button class="btn btn-outline-primary" (click)="saveEmployee()">Mentés</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

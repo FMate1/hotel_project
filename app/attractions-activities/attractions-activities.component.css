@@ -1,0 +1,53 @@
+h2 {
+    margin-bottom: 20px;
+    text-align: left;
+    font-size: x-large;
+}
+
+.program-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.program-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    background-color: #f9f9f9;
+    padding: 10px;
+    text-align: center;
+}
+
+.program-card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.program-card h3 {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.program-card p {
+    margin: 0;
+}
+
+.animate-up {
+    opacity: 0;
+    transform: translateY(100%);
+    animation: slideUp 0.8s ease-in-out forwards;
+    animation-delay: 0.2s;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
