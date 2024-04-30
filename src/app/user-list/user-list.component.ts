@@ -11,11 +11,14 @@ import { Router } from '@angular/router';
 })
 export class UserListComponent implements OnInit {
   users: UserDTO[] = [];
+  //filteredUsers: UserDTO[] = [];
+
+  selectedIsActive: boolean = true;
+  selectedIsAdmin: boolean = true;
 
   constructor(
     private userService: UserService,
-    private toastrService: ToastrService,
-    private router: Router
+    private toastrService: ToastrService
   ) { this.loadData(); }
 
   ngOnInit(): void {
@@ -33,13 +36,26 @@ export class UserListComponent implements OnInit {
     this.userService.getAll().subscribe(
       (users) => {
         this.users = users;
-        //this.filterTable();
+        // this.filterTable();
       },
       (error) => {
         this.toastrService.error('A felhasználók listájának betöltése nem sikerült.', 'Hiba');
       }
     );
   }
+
+  // filterTable() {
+  //   this.filteredUsers = this.users.filter((user) => {
+  //     const matchesIsActiveSelector = /*this.selectedIsActive === '' ||*/ user.isActive === this.selectedIsActive;
+  //     const matchesIsAdminSelector = /*this.selectedIsAdmin === '' ||*/ user.isAdmin === this.selectedIsAdmin;
+
+  //     return matchesIsActiveSelector && matchesIsAdminSelector;
+  //   });
+
+  //   if (!this.selectedIsActive && !this.selectedIsAdmin) {
+  //     this.filteredUsers= this.users;
+  //   }
+  // }
 
   toggleActiveStatus(user: UserDTO) {
     this.userService.toggleActiveStatus(user).subscribe({

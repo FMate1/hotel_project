@@ -58,7 +58,7 @@ export class HotelServicesFormComponent implements OnInit {
   }
 
   validateForm(inputForm: ServiceDTO): void {
-    if (!inputForm.serviceName || !inputForm.price ||  !inputForm.hotel ||  inputForm.price < 1000) {
+    if (!inputForm.serviceName || !inputForm.hotel || !inputForm.price ||  inputForm.price < 1000) {
       this.isValidHotelService = false;
     }
   }

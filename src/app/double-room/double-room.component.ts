@@ -61,8 +61,6 @@ export class DoubleRoomComponent {
     } else {
       this.toastrService.error('Sikertelen foglalás, hibás adatok.', 'Hiba');
     }
-
-
   }
 
 }

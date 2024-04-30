@@ -19,13 +19,13 @@ export class EmployeeFormComponent implements OnInit {
 
   isValidEmployee = true;
   isNewEmployee = true;
-  
+
   employeeForm = this.formBuilder.group({
     id: this.formBuilder.control(0),
     name: this.formBuilder.control(''),
     gender: this.formBuilder.control(''),
     dateOfBirth: this.formBuilder.control(new Date().toISOString().split('T')[0]),
-    taxNumber: this.formBuilder.control(''),
+    taxIdNumber: this.formBuilder.control(''),
     TAJ: this.formBuilder.control(''),
     phoneNo: this.formBuilder.control(''),
     email: this.formBuilder.control(''),
@@ -76,29 +76,87 @@ export class EmployeeFormComponent implements OnInit {
     });
   }
 
-  validateTAJnumber(TAJnumber: number): boolean {
-    const TAJnumberString = TAJnumber.toString();
-
-    if (TAJnumberString.length !== 9) {
+  validateTAJnumber(taj: string): boolean {
+    if (taj.length !== 9 || !/^\d{9}$/.test(taj)) {
       return false;
     }
 
-    const digits = TAJnumberString.substring(0, 8);
+    console.log(taj.length);
 
     let sum = 0;
-    for (let i = 0; i < digits.length; i++) {
-      const digit = parseInt(digits[i], 10);
-      sum += i % 2 === 0 ? digit * 3 : digit * 7;
+    for (let i = 0; i < 8; i++) {
+      const digit = parseInt(taj[i], 10);
+      if (i % 2 === 0) {
+        sum += digit * 3;
+      } else {
+        sum += digit * 7;
+      }
     }
-    const remainder = sum % 10;
-    const ninthDigit = parseInt(TAJnumberString[8], 10);
 
-    return remainder === ninthDigit;
+    const remainder = sum % 10;
+    const checkDigit = parseInt(taj[8], 10);
+
+    return checkDigit === remainder;
+  }
+
+  validatePhoneNumber(phoneNumber: string): boolean {
+    if (phoneNumber.length !== 11) {
+      return false;
+    }
+
+    if (!phoneNumber.startsWith('06')) {
+      return false;
+    }
+
+    const isNumeric = /^\d+$/.test(phoneNumber);
+    if (!isNumeric) {
+      return false;
+    }
+
+    return true;
+  }
+
+  isOlderThan16(birthDateString: string): boolean {
+    const birthDate = new Date(birthDateString);
+    const today = new Date();
+
+    let age = today.getFullYear() - birthDate.getFullYear();
+
+    const monthDifference = today.getMonth() - birthDate.getMonth();
+    const dayDifference = today.getDate() - birthDate.getDate();
+
+    if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+      age--;
+    }
+
+    return age >= 16;
+  }
+
+  isValidTaxIdNumber(taxId: string): boolean {
+    if (taxId.length !== 10 || !/^\d+$/.test(taxId)) {
+      return false;
+    }
+
+    let sum = 0;
+    for (let i = 0; i < 9; i++) {
+      sum += (i + 1) * parseInt(taxId.charAt(i));
+    }
+
+    const remainder = sum % 11;
+
+    return remainder === parseInt(taxId.charAt(9));
+  }
+
+  isValidEmail(email: string): boolean {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
   }
 
   validateForm(inputForm: EmployeeDTO): void {
-    if (!inputForm.name || !inputForm.gender || !inputForm.dateOfBirth || !inputForm.taxNumber || !inputForm.phoneNo 
-      || !inputForm.email || !inputForm.salary || inputForm.salary <= 220000 || !inputForm.hotel || !inputForm.role /*|| !this.validateTAJnumber(inputForm.TAJ)*/) {
+    if (!inputForm.name || !inputForm.gender || !this.isOlderThan16(inputForm.dateOfBirth) || !this.isValidTaxIdNumber(inputForm.taxIdNumber) || !this.validatePhoneNumber(inputForm.phoneNo)
+      || !this.isValidEmail(inputForm.email) || !inputForm.salary || inputForm.salary <= 220000 || !inputForm.hotel || !inputForm.role || !this.validateTAJnumber(inputForm.TAJ)) {
+      console.log(inputForm.TAJ);
+      console.log(this.validateTAJnumber(inputForm.TAJ));
       this.isValidEmployee = false;
     }
   }
@@ -108,25 +166,25 @@ export class EmployeeFormComponent implements OnInit {
 
     this.isValidEmployee = true;
     this.validateForm(employee);
-   
+
     if (this.isValidEmployee) {
       if (this.isNewEmployee) {
         this.employeeService.create(employee).subscribe({
           next: (employee) => {
-            this.toastrService.success('Alkalmazott sikeresen rögzítve, id:' + employee.id , 'Siker');
+            this.toastrService.success('Alkalmazott sikeresen rögzítve, id:' + employee.id, 'Siker');
             this.router.navigate(['/employee-list']);
           },
-          error: (err) => { 
+          error: (err) => {
             this.toastrService.error('Az alkalmazott rögzítése nem sikerült.', 'Hiba');
           }
         });
       } else {
         this.employeeService.update(employee).subscribe({
           next: (employee) => {
-            this.toastrService.success('Alkalmazott adatai sikeresen szerkesztve.' , 'Siker');
+            this.toastrService.success('Alkalmazott adatai sikeresen szerkesztve.', 'Siker');
             this.router.navigate(['/employee-list']);
           },
-          error: (err) => { 
+          error: (err) => {
             this.toastrService.error('Alkalmazott adatainak szerkesztése nem sikerült.', 'Hiba');
           }
         });

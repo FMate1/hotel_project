@@ -1,31 +1,24 @@
 <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <h4>Igénybevehető szolgáltatások listája</h4>
+            <hr>
+        </div>
+    </div>
 
-	<div class="row justify-content-md-center">
-		<div class="col-md-12">
-			<h4>Igénybevehető szolgáltatások listája</h4>
-			<hr>
-		</div>
-	</div>
-
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th scope="col">#</th>
-				<th scope="col">Szolgáltatás neve</th>
-				<th scope="col">Ár / Alkalom</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr *ngFor="let hotelService of hotelServices; let i = index">
-				<th scope="row">{{ i + 1 | number }}</th>
-				<td>{{ hotelService.serviceName }}</td>
-				<td>{{ hotelService.price }} Ft</td>
-                <td *ngIf="authService.isLoggedIn()"><button class="btn btn-sm btn-outline-primary" 
-					(click)="navigateToHotelServiceForm(hotelService.id)">Szerkesztés</button></td>
-				<td *ngIf="authService.isLoggedIn()"><button class="btn btn-sm btn-outline-danger"
-						(click)="deleteHotelService(hotelService)">Törlés</button></td>
-			</tr>
-		</tbody>
-	</table>
-
+    <div class="row">
+        <div class="col-md-4" *ngFor="let hotelService of hotelServices; let i = index">
+            <div class="card mb-3">
+                <!-- <img [src]="hotelService.image" alt="{{ hotelService.serviceName }}" class="card-img-top"> -->
+                <div class="card-body">
+                    <h5 class="card-title">{{ i + 1 | number }}. {{ hotelService.serviceName }}</h5>
+                    <p class="card-text">{{ hotelService.price }}Ft / Alkalom</p>
+                    <div *ngIf="authService.isLoggedIn()">
+                        <button class="btn btn-sm btn-outline-primary me-2" (click)="navigateToHotelServiceForm(hotelService.id)">Szerkesztés</button>
+                        <button class="btn btn-sm btn-outline-danger" (click)="deleteHotelService(hotelService)">Törlés</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

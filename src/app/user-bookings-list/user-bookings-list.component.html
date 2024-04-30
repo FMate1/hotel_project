@@ -27,7 +27,12 @@
 					<td>{{ userBooking.checkOutDate }}</td>
                     <td>{{ userBooking.numAdults }}</td>
                     <td>{{ userBooking.numChildren }}</td>
-                    <td>{{ userBooking.room?.type }}</td>
+                    <td [ngSwitch]="userBooking.room?.type">
+						<span *ngSwitchCase="'Double'">Franciaágyas szoba</span>
+						<span *ngSwitchCase="'Twin'">Két ágyas szoba</span>
+						<span *ngSwitchCase="'Family'">Családi szoba</span>
+						<span *ngSwitchDefault>Egyéb</span>
+					</td>
 					<td>
 						<button class="btn btn-sm btn-outline-danger" (click)="deleteBooking(userBooking)">Törlés</button>
 					</td>
