@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AccessTokenDTO, LoginDTO, UserDTO } from 'models';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,14 @@ export class UserService {
 
   toggleAdminStatus(user: UserDTO) {
     return this.http.put<UserDTO>(`/api/users/${user.id}`, user);
+  }
+
+  getLoggedInUserEmail() {
+    return this.http.get<UserDTO>('/api/users/');
+  }
+
+  getGuests(): Observable<UserDTO[]> {
+    return this.http.get<UserDTO[]>('/api/users/guests');
   }
   
 }

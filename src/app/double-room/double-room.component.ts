@@ -4,6 +4,8 @@ import { BookingService } from '../services/booking.service';
 import { FormBuilder } from '@angular/forms';
 import { BookingDTO, RoleDTO, UserDTO } from 'models';
 import { ActivatedRoute } from '@angular/router';
+import { NotificationService } from '../services/notification.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-double-room',
@@ -16,7 +18,9 @@ export class DoubleRoomComponent {
     private toastrService: ToastrService,
     private bookingService: BookingService,
     private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private userService: UserService,
+    private notificationService: NotificationService
   ) { }
 
   bookingForm = this.formBuilder.group({
@@ -53,6 +57,7 @@ export class DoubleRoomComponent {
       this.bookingService.create(booking).subscribe({
         next: (booking) => {
           this.toastrService.success('Sikeres foglalás!', 'Siker');
+          this.sendEmail();
         },
         error: (err) => {
           this.toastrService.error('Sikertelen foglalás.', 'Hiba');
@@ -61,6 +66,25 @@ export class DoubleRoomComponent {
     } else {
       this.toastrService.error('Sikertelen foglalás, hibás adatok.', 'Hiba');
     }
+  }
+
+  sendEmail(): void {
+    const booking = this.bookingForm.value as BookingDTO;
+    const loggedInUserEmail: string = this.userService.getLoggedInUserEmail();
+
+    // console.log(loggedInUserEmail);
+
+    const message = `Foglalt szoba: Franciaágyas szoba | Érkezés időpontja: ${booking.checkInDate} 
+    | Távozás időpontja : ${booking.checkOutDate} | Felnőttek száma: ${booking.numAdults} | Gyerekek száma: ${booking.numChildren}`;
+
+    this.notificationService.sendEmail(loggedInUserEmail, message).then(
+      (response) => {
+        this.toastrService.success('Email elküldve!');
+      },
+      (error) => {
+        this.toastrService.error('Hiba az email elküldése során!', 'Hiba');
+      }
+    );
   }
 
 }
