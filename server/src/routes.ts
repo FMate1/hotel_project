@@ -69,6 +69,8 @@ export function getRoutes() {
     router.post('/users/login', userController.login);
     router.post('/users/:id', checkUser, onlyAdmin, userController.toggleActiveStatus);
     router.put('/users/:id', checkUser, onlyAdmin, userController.toggleAdminStatus);
+    router.get('/users',checkUser, userController.getLoggedInUserEmail);
+    router.get('/users/guests', checkUser, onlyAdmin, userController.getGuests);
 
     return router;
 }

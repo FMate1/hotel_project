@@ -75,7 +75,5 @@ export class BookingController extends Controller {
             this.handleError(res, err);
         }
     };
-    
-    
 
 }

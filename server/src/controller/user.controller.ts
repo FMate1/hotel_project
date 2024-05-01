@@ -95,4 +95,29 @@ export class UserController extends Controller {
         }
     };
 
+    getLoggedInUserEmail = async (req, res) => {
+        try {
+            const id = req.auth.id;
+            const entity = await this.repository.findOneBy({ id: id });
+            if (!entity) {
+                return this.handleError(res, null, 404, 'Not found.');
+            }
+
+            const email = entity.email;
+
+            res.json(email);
+        } catch (err) {
+            this.handleError(res, err);
+        }
+    };
+
+    getGuests = async (req, res) => {
+        try {
+            const guests = await this.repository.find({ where: { isAdmin: false } });
+            res.json(guests);
+        } catch (error) {
+            res.status(500).json({ message: 'Error retrieving guests' });
+        }
+    };
+
 }
