@@ -19,7 +19,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<ng-container *ngFor="let userBooking of userBookings; let i = index"> <!-- filteredUserBookings userBookings helyett -->
+			<ng-container *ngFor="let userBooking of userBookings; let i = index">
 				<tr>
 					<th scope="row">{{ i + 1 | number }}</th>
 					<td>{{ userBooking.bookingDate }}</td>
@@ -29,7 +29,7 @@
                     <td>{{ userBooking.numChildren }}</td>
                     <td [ngSwitch]="userBooking.room?.type">
 						<span *ngSwitchCase="'Double'">Franciaágyas szoba</span>
-						<span *ngSwitchCase="'Twin'">Két ágyas szoba</span>
+						<span *ngSwitchCase="'Twin'">Kétágyas szoba</span>
 						<span *ngSwitchCase="'Family'">Családi szoba</span>
 						<span *ngSwitchDefault>Egyéb</span>
 					</td>

@@ -31,7 +31,7 @@ export class BookingService {
   }
 
   getUserBookings() {
-    return this.http.get<BookingDTO[]>('api/bookings');
+    return this.http.get<BookingDTO[]>('api/bookings/user-bookings');
   }
 
 }

@@ -31,6 +31,9 @@
         <li class="nav-item">
           <a class="nav-link" aria-current="page" routerLink="/user-list" *ngIf="authService.isLoggedIn() && authService.isAdmin()">Felhasználók listája</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" routerLink="/statistics" *ngIf="authService.isLoggedIn() && authService.isAdmin()">Statisztikák</a>
+        </li>
         <li class="nav-item active">
           <a class="nav-link" routerLink="/login" *ngIf="!authService.isLoggedIn()">Belépés</a>
         </li>

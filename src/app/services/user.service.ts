@@ -39,7 +39,7 @@ export class UserService {
   }
 
   getLoggedInUserEmail() {
-    return this.http.get<UserDTO>('/api/users/');
+    return this.http.get<UserDTO>('/api/users/logged-in');
   }
 
   getGuests(): Observable<UserDTO[]> {

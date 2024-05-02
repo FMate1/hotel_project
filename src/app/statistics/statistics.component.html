@@ -1,1 +1,199 @@
-<p>statistics works!</p>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-3">
+            <input type="text" [(ngModel)]="PdfFileName" class="form-control mb-2" placeholder="PDF fájlnév">
+            <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-outline-primary" (click)="convertToPDF()">Konvertálás
+                    PDF-be</button>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <input type="text" [(ngModel)]="XlsFileName" class="form-control mb-2" placeholder="XLSX fájlnév">
+            <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-outline-primary" (click)="exportToXLSX()">Konvertálás
+                    XLS-be</button>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <input type="text" [(ngModel)]="JsonFileName" class="form-control mb-2" placeholder="JSON fájlnév">
+            <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-outline-primary" (click)="exportToJSON()">Konvertálás
+                    JSON-be</button>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div id="contentToConvert">
+        <div class="row">
+            <h2 align = "center">Foglalások</h2>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Foglalások száma (összes):</h3>
+                        <h4>{{ bookingsCount }} db</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Legtöbbet foglalt szoba:</h3>
+                        <h4>{{ mostBookedRoomType }}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Vendégek átlag életkora:</h3>
+                        <h4>{{ guestsAvgAge }} év</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Franciaágyas szoba:</h3>
+                        <h4>{{ dRoomBookingCnt }} db</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Két ágyas szoba:</h3>
+                        <h4>{{ tRoomBookingCnt }} db</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Családi szoba:</h3>
+                        <h4>{{ fRoomBookingCnt }} db</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Foglalás napja</th>
+                    <th scope="col">Érkezés napja</th>
+                    <th scope="col">Távozás napja</th>
+                    <th scope="col">Felnőttek száma</th>
+                    <th scope="col">Gyerekek száma</th>
+                    <th scope="col">Felhasználó neve</th>
+                    <th scope="col">Szoba típusa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let booking of bookings; let i = index">
+                    <th scope="row">{{ i + 1 | number }}</th>
+                    <td>{{ booking.bookingDate }}</td>
+                    <td>{{ booking.checkInDate }}</td>
+                    <td>{{ booking.checkOutDate }}</td>
+                    <td>{{ booking.numAdults }}</td>
+                    <td>{{ booking.numChildren }}</td>
+                    <td>{{ booking.user?.lastName }} {{ booking.user?.firstName }}</td>
+                    <td [ngSwitch]="booking.room?.type">
+                        <span *ngSwitchCase="'Double'">Franciaágyas szoba</span>
+                        <span *ngSwitchCase="'Twin'">Kétágyas szoba</span>
+                        <span *ngSwitchCase="'Family'">Családi szoba</span>
+                        <span *ngSwitchDefault>Egyéb</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- <h2>Alkalmazottak</h2>
+        <h3>Összes dolgozó: </h3>
+        <h4>{{ empCount }} fő</h4>
+        <h3>Női dolgozók száma: </h3>
+        <h4>{{ femaleEmpCount }} fő</h4>
+        <h3>Férfi dolgozók száma: </h3>
+        <h4>{{ maleEmpCount }} fő</h4>
+        <h3>Átlag fizetés: </h3>
+        <h4>{{ avgEmpSalary }} Ft</h4> -->
+
+        <h2 align = "center">Alkalmazottak</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Összes dolgozó:</h3>
+                        <h4>{{ empCount }} fő</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Női dolgozók száma:</h3>
+                        <h4>{{ femaleEmpCount }} fő</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Férfi dolgozók száma:</h3>
+                        <h4>{{ maleEmpCount }} fő</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Átlag fizetés:</h3>
+                        <h4>{{ avgEmpSalary }} Ft</h4>
+                    </div>
+                </div>
+            </div>
+        </div>        
+
+        <hr>
+        
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Név</th>
+                    <th scope="col">Nem</th>
+                    <th scope="col">Szül. dátum</th>
+                    <th scope="col">Adóazonosító jel</th>
+                    <th scope="col">TAJ szám</th>
+                    <th scope="col">Telefonszám</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Fizetés</th>
+                    <th scope="col">Szerepkör</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let employee of employees; let i = index">
+                    <th scope="row">{{ i + 1 | number }}</th>
+                    <td>{{ employee.name }}</td>
+                    <td>
+                        <span *ngIf="employee.gender === 'male'; then thenBlock else elseBlock"></span>
+                        <ng-template #thenBlock>Férfi</ng-template>
+                        <ng-template #elseBlock>Nő</ng-template>
+                    </td>
+                    <td>{{ employee.dateOfBirth }}</td>
+                    <td>{{ employee.taxIdNumber }}</td>
+                    <td>{{ employee.TAJ }}</td>
+                    <td>{{ employee.phoneNo }}</td>
+                    <td>{{ employee.email }}</td>
+                    <td>{{ employee.salary }}</td>
+                    <td>{{ employee?.role?.title }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -31,7 +31,6 @@ export class UserBookingsListComponent implements OnInit {
     this.bookingService.getUserBookings().subscribe(
       (userBookings) => {
         this.userBookings = userBookings;
-        //this.filterTable();
       },
       (error) => {
         this.toastrService.error('A foglalások listájának betöltése nem sikerült.', 'Hiba');
@@ -46,8 +45,6 @@ export class UserBookingsListComponent implements OnInit {
         if (bookingIndex > -1) {
           this.userBookings.splice(bookingIndex, 1);
         }
-
-        //this.filterTable()
         this.loadData();
       },
       error: (err) => {

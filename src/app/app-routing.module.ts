@@ -15,6 +15,7 @@ import { AttractionsActivitiesComponent } from './attractions-activities/attract
 import { HotelServicesFormComponent } from './hotel-services-form/hotel-services-form.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserBookingsListComponent } from './user-bookings-list/user-bookings-list.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 const routes: Routes = [
   {
@@ -87,6 +88,10 @@ const routes: Routes = [
   {
     path: 'attractions-activities',
     component: AttractionsActivitiesComponent
+  },
+  {
+    path: 'statistics',
+    component: StatisticsComponent
   }
 
 ];
