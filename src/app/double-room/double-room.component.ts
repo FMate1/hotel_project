@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { BookingService } from '../services/booking.service';
 import { FormBuilder } from '@angular/forms';
@@ -12,7 +12,7 @@ import { UserService } from '../services/user.service';
   templateUrl: './double-room.component.html',
   styleUrls: ['./double-room.component.css']
 })
-export class DoubleRoomComponent {
+export class DoubleRoomComponent implements OnInit {
 
   constructor(
     private toastrService: ToastrService,
@@ -34,9 +34,33 @@ export class DoubleRoomComponent {
     role: this.formBuilder.control<null | RoleDTO>(null),
   });
 
+  loggedInUser?: UserDTO;
+
+  ngOnInit(): void {
+    this.userService.getLoggedInUserEmail().subscribe(user => { this.loggedInUser = user });
+  }
+
   roomId = this.activatedRoute.snapshot.params['id'];
 
   validateBookingForm(inputForm: BookingDTO): boolean {
+    const checkInDate = new Date(inputForm.checkInDate);
+    const checkOutDate = new Date(inputForm.checkOutDate);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (checkInDate.getTime() === checkOutDate.getTime()) {
+      return false;
+    }
+
+    if (checkInDate.getTime() > checkOutDate.getTime()) {
+      return false;
+    }
+
+    if (checkInDate.getTime() <= today.getTime()) {
+      return false;
+    }
+
     const ctn = inputForm.numAdults + inputForm.numChildren;
 
     if (ctn <= 0 || ctn > 2) {
@@ -70,14 +94,15 @@ export class DoubleRoomComponent {
 
   sendEmail(): void {
     const booking = this.bookingForm.value as BookingDTO;
-    const loggedInUserEmail: string = this.userService.getLoggedInUserEmail();
 
-    // console.log(loggedInUserEmail);
+    if (!this.loggedInUser) {
+      return;
+    }
 
     const message = `Foglalt szoba: Franciaágyas szoba | Érkezés időpontja: ${booking.checkInDate} 
     | Távozás időpontja : ${booking.checkOutDate} | Felnőttek száma: ${booking.numAdults} | Gyerekek száma: ${booking.numChildren}`;
 
-    this.notificationService.sendEmail(loggedInUserEmail, message).then(
+    this.notificationService.sendEmail(this.loggedInUser.email, message).then(
       (response) => {
         this.toastrService.success('Email elküldve!');
       },

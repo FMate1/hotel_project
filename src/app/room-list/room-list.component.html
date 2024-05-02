@@ -17,7 +17,12 @@
 		<tbody>
 			<tr *ngFor="let room of rooms; let i = index">
 				<th scope="row">{{ i + 1 | number }}</th>
-				<td>{{ room.type }}</td>
+				<td [ngSwitch]="room.type">
+					<span *ngSwitchCase="'Double'">Franciaágyas szoba</span>
+					<span *ngSwitchCase="'Twin'">Kétágyas szoba</span>
+					<span *ngSwitchCase="'Family'">Családi szoba</span>
+					<span *ngSwitchDefault>Egyéb</span>
+				</td>
 				<td>{{ room.numBeds | number }}</td>
 				<td>{{ room.price }} Ft</td>
 				<td><button class="btn btn-outline-primary" (click)="navigateToRoom(room.type, room.id)">Foglalás és részletek</button></td>

@@ -7,9 +7,8 @@
     </div>
 
     <div class="row">
-        <div class="col-md-4" *ngFor="let hotelService of hotelServices; let i = index">
+        <div class="col-md-3" *ngFor="let hotelService of hotelServices; let i = index">
             <div class="card mb-3">
-                <!-- <img [src]="hotelService.image" alt="{{ hotelService.serviceName }}" class="card-img-top"> -->
                 <div class="card-body">
                     <h5 class="card-title">{{ i + 1 | number }}. {{ hotelService.serviceName }}</h5>
                     <p class="card-text">{{ hotelService.price }}Ft / Alkalom</p>

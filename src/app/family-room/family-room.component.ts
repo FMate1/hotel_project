@@ -1,22 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { BookingService } from '../services/booking.service';
 import { FormBuilder } from '@angular/forms';
 import { BookingDTO, RoleDTO, UserDTO } from 'models';
 import { ActivatedRoute } from '@angular/router';
+import { UserService } from '../services/user.service';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
   selector: 'app-family-room',
   templateUrl: './family-room.component.html',
   styleUrls: ['./family-room.component.css']
 })
-export class FamilyRoomComponent {
+export class FamilyRoomComponent implements OnInit {
 
   constructor(
     private toastrService: ToastrService,
     private bookingService: BookingService,
+    private userService: UserService,
     private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private notificationService: NotificationService
   ) { }
 
   bookingForm = this.formBuilder.group({
@@ -30,9 +34,33 @@ export class FamilyRoomComponent {
     role: this.formBuilder.control<null | RoleDTO>(null),
   });
 
+  loggedInUser? : UserDTO;
+
+  ngOnInit(): void {
+    this.userService.getLoggedInUserEmail().subscribe(user => { this.loggedInUser = user });
+  }
+
   roomId = this.activatedRoute.snapshot.params['id'];
 
   validateBookingForm(inputForm: BookingDTO): boolean {
+    const checkInDate = new Date(inputForm.checkInDate);
+    const checkOutDate = new Date(inputForm.checkOutDate);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (checkInDate.getTime() === checkOutDate.getTime()) {
+      return false;
+    }
+
+    if (checkInDate.getTime() > checkOutDate.getTime()) {
+      return false;
+    }
+
+    if (checkInDate.getTime() <= today.getTime()) {
+      return false;
+    }
+    
     const ctn = inputForm.numAdults + inputForm.numChildren;
 
     if (ctn <= 0 || ctn > 4) {
@@ -53,6 +81,7 @@ export class FamilyRoomComponent {
       this.bookingService.create(booking).subscribe({
         next: (booking) => {
           this.toastrService.success('Sikeres foglalás!', 'Siker');
+          this.sendEmail();
         },
         error: (err) => {
           this.toastrService.error('Sikertelen foglalás.', 'Hiba');
@@ -61,6 +90,26 @@ export class FamilyRoomComponent {
     } else {
       this.toastrService.error('Sikertelen foglalás, hibás adatok.', 'Hiba');
     }
+  }
+
+  sendEmail(): void {
+    const booking = this.bookingForm.value as BookingDTO;
+
+    if (!this.loggedInUser) {
+      return;
+    }
+
+    const message = `Foglalt szoba: Családi szoba | Érkezés időpontja: ${booking.checkInDate} 
+    | Távozás időpontja : ${booking.checkOutDate} | Felnőttek száma: ${booking.numAdults} | Gyerekek száma: ${booking.numChildren}`;
+
+    this.notificationService.sendEmail(this.loggedInUser.email, message).then(
+      (response) => {
+        this.toastrService.success('Email elküldve!');
+      },
+      (error) => {
+        this.toastrService.error('Hiba az email elküldése során!', 'Hiba');
+      }
+    );
   }
 
 }
