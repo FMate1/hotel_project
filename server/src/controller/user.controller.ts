@@ -95,7 +95,7 @@ export class UserController extends Controller {
         }
     };
 
-    getLoggedInUserEmail = async (req, res) => {
+    getLoggedInUser = async (req, res) => {
         try {
             const id = req.auth.id;
             const entity = await this.repository.findOneBy({ id: id });
@@ -103,9 +103,7 @@ export class UserController extends Controller {
                 return this.handleError(res, null, 404, 'Not found.');
             }
 
-            const email = entity.email;
-
-            res.json(email);
+            res.json(entity);
         } catch (err) {
             this.handleError(res, err);
         }

@@ -52,7 +52,7 @@ export interface BookingDTO {
     numAdults: number;
     numChildren: number;
     user: null | UserDTO;
-    room: null | RoomDTO;
+    room: null | RoomDTO | Partial<RoomDTO>;
 }
 
 export interface UserDTO {

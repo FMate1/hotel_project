@@ -37,8 +37,8 @@ export function getRoutes() {
 
     const bookingController = new BookingController();
 
-    //router.get('/bookings', bookingController.getAll);
-    router.get('/bookings', checkUser, bookingController.getUserBookings);
+    router.get('/bookings', bookingController.getAll);
+    router.get('/bookings/user-bookings', checkUser, bookingController.getUserBookings);
     router.get('/bookings/:id', bookingController.getOne);
     router.post('/bookings', checkUser, bookingController.create);
     router.put('/bookings', checkUser, onlyAdmin, bookingController.update);
@@ -63,14 +63,14 @@ export function getRoutes() {
     const userController = new UserController();
 
     router.get('/users', checkUser, onlyAdmin, userController.getAll);
+    router.get('/users/guests', checkUser, onlyAdmin, userController.getGuests);
+    router.get('/users/logged-in',checkUser, userController.getLoggedInUser);
     router.get('/users/:id',checkUser, onlyAdmin, userController.getOne);
     router.post('/users', userController.create);
     router.put('/users', checkUser, onlyAdmin, userController.update);
     router.post('/users/login', userController.login);
     router.post('/users/:id', checkUser, onlyAdmin, userController.toggleActiveStatus);
     router.put('/users/:id', checkUser, onlyAdmin, userController.toggleAdminStatus);
-    router.get('/users',checkUser, userController.getLoggedInUserEmail);
-    router.get('/users/guests', checkUser, onlyAdmin, userController.getGuests);
 
     return router;
 }
