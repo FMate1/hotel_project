@@ -34,7 +34,19 @@
 						<span *ngSwitchDefault>Egyéb</span>
 					</td>
 					<td>
-						<button class="btn btn-sm btn-outline-danger" (click)="deleteBooking(userBooking)">Törlés</button>
+						<button class="btn btn-sm btn-outline-danger" (click)="open(deleteConfirmationModal,userBooking.id)">Törlés</button>
+						<ng-template #deleteConfirmationModal let-modal>
+							<div class="modal-header">
+								<h4 class="modal-title" id="modal-basic-title">Megerősítés</h4>
+							</div>
+							<div class="modal-body">
+								Biztosan törölni szeretné ezt a foglalást?
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" (click)="modal.dismiss('cancel')">Mégse</button>
+								<button type="button" class="btn btn-danger" (click)="modal.close('confirm')">Megerősít</button>
+							</div>
+						</ng-template>
 					</td>
 				</tr>
 			</ng-container>

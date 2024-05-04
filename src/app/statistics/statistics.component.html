@@ -100,8 +100,8 @@
                     <td>{{ booking.bookingDate }}</td>
                     <td>{{ booking.checkInDate }}</td>
                     <td>{{ booking.checkOutDate }}</td>
-                    <td>{{ booking.numAdults }}</td>
-                    <td>{{ booking.numChildren }}</td>
+                    <td>{{ booking.numAdults }} fő</td>
+                    <td>{{ booking.numChildren }} fő</td>
                     <td>{{ booking.user?.lastName }} {{ booking.user?.firstName }}</td>
                     <td [ngSwitch]="booking.room?.type">
                         <span *ngSwitchCase="'Double'">Franciaágyas szoba</span>

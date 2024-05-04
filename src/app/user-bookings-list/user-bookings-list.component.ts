@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BookingDTO } from 'models';
 import { ToastrService } from 'ngx-toastr';
 import { BookingService } from '../services/booking.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-user-bookings-list',
@@ -13,7 +15,8 @@ export class UserBookingsListComponent implements OnInit {
 
   constructor(
     private bookingService: BookingService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private modalService: NgbModal
   ) { this.loadData(); }
 
   ngOnInit(): void {
@@ -52,6 +55,37 @@ export class UserBookingsListComponent implements OnInit {
         this.toastrService.error('Hiba a foglalás törlésekor.', 'Hiba');
       }
     })
+  }
+
+  open(content: TemplateRef<any>, bookingId: number) {
+    let bookingToDelete: BookingDTO | undefined;
+
+    for (const booking of this.userBookings) {
+      if (booking.id === bookingId) {
+        bookingToDelete = booking;
+        break;
+      }
+    }
+
+    if (!bookingToDelete) {
+      this.toastrService.error('Foglalás nem található!', 'Hiba');
+      return;
+    }
+
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+      (result) => {
+        if (result === 'confirm') {
+          if (bookingToDelete) {
+            this.deleteBooking(bookingToDelete);
+          } else {
+            this.toastrService.error('Foglalás nem található!', 'Hiba');
+          }
+        }
+      },
+      (reason) => {
+        console.error('Modal dismissed with reason: ', reason);
+      }
+    );
   }
 
 }
