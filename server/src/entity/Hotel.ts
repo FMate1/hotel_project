@@ -21,15 +21,6 @@ export class Hotel implements HotelDTO {
 
     @Column()
     city: string;
-    
-    @Column()
-    country: string;
-
-    @Column()
-    numRooms: number;
-
-    @Column({ unique: true })
-    phoneNo: number;
 
     @OneToMany(() => Employee, (employee) => employee.hotel)
     employees: Employee[];

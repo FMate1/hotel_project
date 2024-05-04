@@ -24,9 +24,6 @@ export interface HotelDTO {
     address: string;
     postcode: number;
     city: string;
-    country: string;
-    numRooms: number;
-    phoneNo: number;
 }
 
 export interface ServiceDTO {
