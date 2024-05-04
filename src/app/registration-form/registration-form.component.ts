@@ -32,8 +32,13 @@ export class RegistrationFormComponent {
 
   isValidUser = true;
 
+  isValidEmail(email: string): boolean {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  }
+
   validateForm(inputForm: UserDTO): void {
-    if (!inputForm.email || !inputForm.password || !inputForm.firstName || !inputForm.lastName 
+    if (!this.isValidEmail(inputForm.email) || !inputForm.password || !inputForm.firstName || !inputForm.lastName 
       || !inputForm.dateOfBirth
     ) {
       this.isValidUser = false;

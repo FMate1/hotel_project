@@ -152,13 +152,6 @@ export class EmployeeFormComponent implements OnInit {
       return false;
     }
 
-
-    console.log(division);
-    console.log(fractionalPart);
-    console.log(decimalDigit);
-    console.log(roundedDigit);
-    console.log(taxId.charAt(9));
-
     return roundedDigit === parseInt(taxId.charAt(9));
   }
 
