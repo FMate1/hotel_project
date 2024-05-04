@@ -81,8 +81,6 @@ export class EmployeeFormComponent implements OnInit {
       return false;
     }
 
-    console.log(taj.length);
-
     let sum = 0;
     for (let i = 0; i < 8; i++) {
       const digit = parseInt(taj[i], 10);
@@ -142,9 +140,26 @@ export class EmployeeFormComponent implements OnInit {
       sum += (i + 1) * parseInt(taxId.charAt(i));
     }
 
-    const remainder = sum % 11;
+    const division = sum / 11;
 
-    return remainder === parseInt(taxId.charAt(9));
+    const fractionalPart = division - Math.floor(division);
+  
+    const decimalDigit = fractionalPart * 10;
+    
+    const roundedDigit = Math.ceil(decimalDigit);
+
+    if (roundedDigit === 10) {
+      return false;
+    }
+
+
+    console.log(division);
+    console.log(fractionalPart);
+    console.log(decimalDigit);
+    console.log(roundedDigit);
+    console.log(taxId.charAt(9));
+
+    return roundedDigit === parseInt(taxId.charAt(9));
   }
 
   isValidEmail(email: string): boolean {
@@ -155,8 +170,6 @@ export class EmployeeFormComponent implements OnInit {
   validateForm(inputForm: EmployeeDTO): void {
     if (!inputForm.name || !inputForm.gender || !this.isOlderThan16(inputForm.dateOfBirth) || !this.isValidTaxIdNumber(inputForm.taxIdNumber) || !this.validatePhoneNumber(inputForm.phoneNo)
       || !this.isValidEmail(inputForm.email) || !inputForm.salary || inputForm.salary <= 220000 || !inputForm.hotel || !inputForm.role || !this.validateTAJnumber(inputForm.TAJ)) {
-      console.log(inputForm.TAJ);
-      console.log(this.validateTAJnumber(inputForm.TAJ));
       this.isValidEmployee = false;
     }
   }

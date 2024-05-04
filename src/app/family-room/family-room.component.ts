@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { BookingService } from '../services/booking.service';
 import { FormBuilder } from '@angular/forms';
-import { BookingDTO, RoleDTO, UserDTO } from 'models';
+import { BookingDTO, RoleDTO, RoomDTO, UserDTO } from 'models';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { NotificationService } from '../services/notification.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { RoomService } from '../services/room.service';
 
 @Component({
   selector: 'app-family-room',
@@ -18,9 +20,11 @@ export class FamilyRoomComponent implements OnInit {
     private toastrService: ToastrService,
     private bookingService: BookingService,
     private userService: UserService,
+    private roomService: RoomService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private modalService: NgbModal
   ) { }
 
   bookingForm = this.formBuilder.group({
@@ -34,13 +38,16 @@ export class FamilyRoomComponent implements OnInit {
     role: this.formBuilder.control<null | RoleDTO>(null),
   });
 
-  loggedInUser? : UserDTO;
+  loggedInUser?: UserDTO;
+  roomToBook? : RoomDTO;
+
+  roomId = this.activatedRoute.snapshot.params['id'];
 
   ngOnInit(): void {
     this.userService.getLoggedInUserEmail().subscribe(user => { this.loggedInUser = user });
-  }
 
-  roomId = this.activatedRoute.snapshot.params['id'];
+    this.roomService.getOne(this.roomId).subscribe(room => { this.roomToBook = room });
+  }
 
   validateBookingForm(inputForm: BookingDTO): boolean {
     const checkInDate = new Date(inputForm.checkInDate);
@@ -60,10 +67,14 @@ export class FamilyRoomComponent implements OnInit {
     if (checkInDate.getTime() <= today.getTime()) {
       return false;
     }
-    
+
     const ctn = inputForm.numAdults + inputForm.numChildren;
 
-    if (ctn <= 0 || ctn > 4) {
+    if (!this.roomToBook) {
+      return false;
+    }
+
+    if (ctn <= 0 || ctn > this.roomToBook?.numBeds) {
       return false;
     } else if (inputForm.numAdults < 1) {
       return false;
@@ -108,6 +119,19 @@ export class FamilyRoomComponent implements OnInit {
       },
       (error) => {
         this.toastrService.error('Hiba az email elküldése során!', 'Hiba');
+      }
+    );
+  }
+
+  open(content: TemplateRef<any>) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+      (result) => {
+        if (result === 'confirm') {
+          this.bookRoom();
+        }
+      },
+      (reason) => {
+        console.error('Modal dismissed with reason: ', reason);
       }
     );
   }

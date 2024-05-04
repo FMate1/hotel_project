@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ServiceDTO } from 'models';
 import { HotelServicesService } from '../services/hotel-services.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-hotel-sevices-list',
@@ -17,7 +18,8 @@ export class HotelSevicesListComponent implements OnInit{
     private hotelServicesService: HotelServicesService,
     private toastrService: ToastrService,
     private router: Router,
-    public authService: AuthService
+    public authService: AuthService,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -36,7 +38,6 @@ export class HotelSevicesListComponent implements OnInit{
     this.hotelServicesService.getAll().subscribe(
       (hotelServices) => {
         this.hotelServices = hotelServices;
-        //this.filterTable();
       },
       (error) => {
         this.toastrService.error('A szerepkörök listájának betöltése nem sikerült.', 'Hiba');
@@ -61,6 +62,37 @@ export class HotelSevicesListComponent implements OnInit{
         this.toastrService.error('Hiba a szolgáltatás törlésekor.', 'Hiba');
       }
     })
+  }
+
+  open(content: TemplateRef<any>, hotelServId: number) {
+    let hotelServToDelete: ServiceDTO | undefined;
+
+    for (const hotelServ of this.hotelServices) {
+      if (hotelServ.id === hotelServId) {
+        hotelServToDelete = hotelServ;
+        break;
+      }
+    }
+
+    if (!hotelServToDelete) {
+      this.toastrService.error('A szolgáltatás nem található!', 'Hiba');
+      return;
+    }
+
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+      (result) => {
+        if (result === 'confirm') {
+          if (hotelServToDelete) {
+            this.deleteHotelService(hotelServToDelete);
+          } else {
+            this.toastrService.error('A szolgáltatás nem található!', 'Hiba');
+          }
+        }
+      },
+      (reason) => {
+        console.error('Modal dismissed with reason: ', reason);
+      }
+    );
   }
 
 }

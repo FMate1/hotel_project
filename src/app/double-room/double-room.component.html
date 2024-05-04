@@ -49,7 +49,19 @@
     </div>
     <div class="row" id="booking-btn">
         <div class="col-md-6 text-center">
-            <button class="btn btn-primary" (click)="bookRoom()">Foglalás</button>
+            <button class="btn btn-primary" (click)="open(bookRoomModal)">Foglalás</button>
+            <ng-template #bookRoomModal let-modal>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">Megerősítés</h4>
+                </div>
+                <div class="modal-body">
+                    Biztosan le szeretné foglalni ezt a szobát?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="modal.dismiss('cancel')">Mégse</button>
+                    <button type="button" class="btn btn-primary" (click)="modal.close('confirm')">Megerősít</button>
+                </div>
+            </ng-template>
         </div>
     </div>
 </div>

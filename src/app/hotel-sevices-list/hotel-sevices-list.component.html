@@ -12,9 +12,21 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ i + 1 | number }}. {{ hotelService.serviceName }}</h5>
                     <p class="card-text">{{ hotelService.price }}Ft / Alkalom</p>
-                    <div *ngIf="authService.isLoggedIn()">
+                    <div *ngIf="authService.isLoggedIn() && authService.isAdmin()">
                         <button class="btn btn-sm btn-outline-primary me-2" (click)="navigateToHotelServiceForm(hotelService.id)">Szerkesztés</button>
-                        <button class="btn btn-sm btn-outline-danger" (click)="deleteHotelService(hotelService)">Törlés</button>
+                        <button class="btn btn-sm btn-outline-danger" (click)="open(deleteConfirmationModal, hotelService.id)">Törlés</button>
+						<ng-template #deleteConfirmationModal let-modal>
+							<div class="modal-header">
+								<h4 class="modal-title" id="modal-basic-title">Megerősítés</h4>
+							</div>
+							<div class="modal-body">
+								Biztosan törölni szeretné a szolgáltatást?
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" (click)="modal.dismiss('cancel')">Mégse</button>
+								<button type="button" class="btn btn-danger" (click)="modal.close('confirm')">Megerősít</button>
+							</div>
+						</ng-template>
                     </div>
                 </div>
             </div>

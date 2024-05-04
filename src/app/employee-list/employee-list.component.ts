@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { EmployeeDTO, RoleDTO } from 'models';
 import { EmployeeService } from '../services/employee.service';
 import { ToastrService } from 'ngx-toastr';
 import { RoleService } from '../services/role.service';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-employee-list',
@@ -25,7 +26,8 @@ export class EmployeeListComponent implements OnInit {
     private employeeService: EmployeeService,
     private roleService: RoleService,
     private toastrService: ToastrService,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) { this.loadData(); }
 
   ngOnInit(): void {
@@ -114,6 +116,37 @@ export class EmployeeListComponent implements OnInit {
         this.toastrService.error('Hiba az alkalmazott törlésekor.', 'Hiba');
       }
     })
+  }
+
+  open(content: TemplateRef<any>, empId: number) {
+    let empToDelete: EmployeeDTO | undefined;
+
+    for (const emp of this.employees) {
+      if (emp.id === empId) {
+        empToDelete = emp;
+        break;
+      }
+    }
+
+    if (!empToDelete) {
+      this.toastrService.error('Az alkalmazott nem található!', 'Hiba');
+      return;
+    }
+
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+      (result) => {
+        if (result === 'confirm') {
+          if (empToDelete) {
+            this.deleteEmployee(empToDelete);
+          } else {
+            this.toastrService.error('Az alkalmazott nem található!', 'Hiba');
+          }
+        }
+      },
+      (reason) => {
+        console.error('Modal dismissed with reason: ', reason);
+      }
+    );
   }
 
 }
