@@ -25,8 +25,12 @@
 					<td>{{ userBooking.bookingDate }}</td>
 					<td>{{ userBooking.checkInDate }}</td>
 					<td>{{ userBooking.checkOutDate }}</td>
-                    <td>{{ userBooking.numAdults }}</td>
-                    <td>{{ userBooking.numChildren }}</td>
+                    <td>{{ userBooking.numAdults }} fő</td>
+                    <td>
+						<span *ngIf="userBooking.numChildren === 0; then thenBlock else elseBlock"></span>
+						<ng-template #thenBlock> - </ng-template>
+						<ng-template #elseBlock>{{ userBooking.numChildren }} fő</ng-template>
+					</td>
                     <td [ngSwitch]="userBooking.room?.type">
 						<span *ngSwitchCase="'Double'">Franciaágyas szoba</span>
 						<span *ngSwitchCase="'Twin'">Kétágyas szoba</span>
